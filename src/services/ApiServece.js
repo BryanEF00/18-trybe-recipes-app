@@ -29,9 +29,10 @@ export const ingredients = 'www.thecocktaildb.com/api/json/v1/1/list.php?i=';/* 
 export const alcoholicFilters = 'www.thecocktaildb.com/api/json/v1/1/list.php?a=';/* list */
 
 // A mesma função pode ser usada para fazer todas as requisições//
-export const RequestApi = async (Request, param) => {
-  const ENDPOINT = `${Request}${param}`;
+export const requestApi = async (request, param) => {
+  const ENDPOINT = `https://${request}${param}`;
   const response = await fetch(ENDPOINT);
+
   const json = await response.json();
   return (response.ok
     ? Promise.resolve(json)
