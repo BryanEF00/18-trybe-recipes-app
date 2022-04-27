@@ -18,20 +18,30 @@ function ExploreDrinks({ history }) {
   return (
     <div>
       <Header />
-      <button
-        data-testid="explore-by-ingredient"
-        type="button"
-        onClick={ () => redirectExploreFoods('/explore/drinks/ingredients') }
+      <div
+        className="
+          container-fluid
+          d-flex
+          flex-wrap
+          justify-content-around"
       >
-        By Ingredient
-      </button>
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ () => redirectRandomFood() }
-      >
-        Surprise me!
-      </button>
+        <button
+          className="btn btn-outline-dark my-3"
+          data-testid="explore-by-ingredient"
+          type="button"
+          onClick={ () => redirectExploreFoods('/explore/drinks/ingredients') }
+        >
+          By Ingredient
+        </button>
+        <button
+          className="btn btn-outline-dark my-3"
+          data-testid="explore-surprise"
+          type="button"
+          onClick={ () => redirectRandomFood() }
+        >
+          Surprise me!
+        </button>
+      </div>
       <Footer />
     </div>
   );

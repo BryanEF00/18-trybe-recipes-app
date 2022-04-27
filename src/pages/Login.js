@@ -29,7 +29,7 @@ function Login({ history }) {
   return (
     <Container
       className="d-flex flex-column justify-content-center align-items-center"
-      style={ { height: '600px' } }
+      style={ { height: '640px' } }
     >
       <h1>LOGIN</h1>
       <InputGroup className="mb-3 row">
