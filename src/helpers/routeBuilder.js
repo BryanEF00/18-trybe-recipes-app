@@ -21,14 +21,27 @@ const pageList = [Login, Foods, Drinks, DetailedFoods, DetailedDrinks, InProgres
   InProgressDrinks, Explore, ExploreFoods, ExploreDrinks, ExploreFoodsIngredients,
   ExploreDrinksIngredients, ExploreNacionalities, Profile, DoneRecipes, FavoriteRecipes];
 
-const UrlList = `/ /foods /drinks /foods/:id /drinks/:id /foods/:id/in-progress
- /drinks/:id/in-progress /explore /explore/foods /explore/drinks
- /explore/foods/ingredients /explore/drinks/ingredients /explore/foods/nationalities
- /profile /done-recipes /favorite-recipes`;
+const UrlList = [
+  '/',
+  '/foods',
+  '/drinks',
+  '/foods/:id',
+  '/drinks/:id',
+  '/foods/:id/in-progress',
+  '/drinks/:id/in-progress',
+  '/explore',
+  '/explore/foods',
+  '/explore/drinks',
+  '/explore/foods/ingredients',
+  '/explore/drinks/ingredients',
+  '/explore/foods/nationalities',
+  '/profile',
+  '/done-recipes',
+  '/favorite-recipes',
+];
 
-const routeBuilder = UrlList.split(' ')
-  .map((path, index) => (
-    <Route exact path={ path } key={ path } component={ pageList[index] } />
-  ));
+const routeBuilder = UrlList.map((path, index) => (
+  <Route exact path={ path } key={ path } component={ pageList[index] } />
+));
 
 export default routeBuilder;
