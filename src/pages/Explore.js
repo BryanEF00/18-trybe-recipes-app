@@ -7,7 +7,6 @@ function Explore() {
     <div>
       <Header />
       <p>PÁGINA DE EXPLORAÇÃO</p>
-      <div>a</div>
       <Footer />
     </div>
   );
