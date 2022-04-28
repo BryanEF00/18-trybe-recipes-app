@@ -42,7 +42,6 @@ function Header({ title, withSearchButton }) {
             ? (
               <button
                 type="button"
-                data-testid="search-top-btn"
                 id="search"
                 className="search"
                 onClick={ InputSearch }
