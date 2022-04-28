@@ -1,0 +1,30 @@
+.header {
+  align-items: center;
+  background-color: silver;
+  bottom: 0;
+  display: flex;
+  height: auto;
+  justify-content: space-around;
+  position: initial;
+  width: 100%;
+  flex-direction: column;
+  
+}
+
+.header div {
+  align-items: center;
+  background-color: silver;
+  bottom: 0;
+  display: flex;
+  height: auto;
+  justify-content: space-around;
+  position: initial;
+  width: 100%;
+  
+}
+
+.search {
+  background: transparent;
+  border: none;
+  outline: none;
+}

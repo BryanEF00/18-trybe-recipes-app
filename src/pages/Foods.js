@@ -1,11 +1,14 @@
 import React from 'react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Foods() {
   return (
     <div>
-      <Header />
+      <Header
+        title="Foods"
+        withSearchButton
+      />
       <p>PÁGINA DE COMIDAS</p>
       <Footer />
     </div>

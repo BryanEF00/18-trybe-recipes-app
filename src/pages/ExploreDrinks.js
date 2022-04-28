@@ -5,7 +5,9 @@ import Footer from '../components/Footer';
 function ExploreDrinks() {
   return (
     <div>
-      <Header />
+      <Header
+        title="Explore Drinks"
+      />
       <p>PÁGINA DE EXPLORAR BEBIDAS</p>
       <Footer />
     </div>

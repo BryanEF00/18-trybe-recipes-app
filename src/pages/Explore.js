@@ -10,7 +10,9 @@ function Explore({ history }) {
 
   return (
     <div>
-      <Header />
+      <Header
+        title="Explore"
+      />
       <button
         data-testid="explore-foods"
         type="button"
