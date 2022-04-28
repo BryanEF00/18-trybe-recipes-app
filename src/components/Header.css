@@ -3,12 +3,11 @@
   background-color: silver;
   bottom: 0;
   display: flex;
+  flex-direction: column;
   height: auto;
   justify-content: space-around;
   position: initial;
   width: 100%;
-  flex-direction: column;
-  
 }
 
 .header div {
@@ -20,7 +19,6 @@
   justify-content: space-around;
   position: initial;
   width: 100%;
-  
 }
 
 .search {
