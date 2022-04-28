@@ -9,24 +9,28 @@ function Explore({ history }) {
   };
 
   return (
-    <div>
+    <div style={ { height: '600px' } }>
       <Header
         title="Explore"
       />
-      <button
-        data-testid="explore-foods"
-        type="button"
-        onClick={ () => redirectExplore('/explore/foods') }
-      >
-        Explore Foods
-      </button>
-      <button
-        data-testid="explore-drinks"
-        type="button"
-        onClick={ () => redirectExplore('/explore/drinks') }
-      >
-        Explore Drinks
-      </button>
+      <div className="container-fluid d-flex justify-content-around">
+        <button
+          className="btn btn-outline-dark my-3"
+          data-testid="explore-foods"
+          type="button"
+          onClick={ () => redirectExplore('/explore/foods') }
+        >
+          Explore Foods
+        </button>
+        <button
+          className="btn btn-outline-dark my-3"
+          data-testid="explore-drinks"
+          type="button"
+          onClick={ () => redirectExplore('/explore/drinks') }
+        >
+          Explore Drinks
+        </button>
+      </div>
       <Footer />
     </div>
   );
