@@ -13,7 +13,8 @@ import {
 function SearchBarFoods({ title }) {
   const [itemSearch, setItemSearch] = useState('');
   const [selectSearch, setSelectSearch] = useState();
-  const [results, setResults] = useState();
+  const [results, setResults] = useState([]);
+  const [onAlert, setOnAlert] = useState(false);
 
   function getItemSearch({ target }) {
     const valor = target.value;
@@ -27,10 +28,16 @@ function SearchBarFoods({ title }) {
     }
   }
 
-  useEffect(() => {
-    spanAlert();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemSearch]);
+  function getIdResults() {
+    if (onAlert === true && results.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (results.length === 1) {
+      console.log(1);
+      if (title === 'Foods') window.location.href = `/foods/${results[0].idMeal}`;
+      if (title === 'Drinks') window.location.href = `/drinks/${results[0].idDrink}`;
+    }
+  }
 
   function getSelectSearch({ target }) {
     const valor = target.value;
@@ -54,10 +61,20 @@ function SearchBarFoods({ title }) {
 
   async function searchApi() {
     const temp = await requestApi(methodtSearch(), itemSearch);
-    setResults(temp);
+    if (title === 'Foods') setResults(temp.meals);
+    if (title === 'Drinks') setResults(temp.drinks);
+    setOnAlert(true);
   }
 
-  console.log(results);
+  useEffect(() => {
+    spanAlert();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemSearch]);
+
+  useEffect(() => {
+    getIdResults();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [results]);
 
   return (
     <fieldset>
