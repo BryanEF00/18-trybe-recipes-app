@@ -1,0 +1,9 @@
+/* stylelint-disable linebreaks */
+.cardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 65px;
+  padding: 16px 12px 0;
+  width: 100vw;
+}
