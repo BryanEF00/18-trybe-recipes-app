@@ -59,7 +59,7 @@ function Header({ title, withSearchButton }) {
       </div>
       {
         onInputSearch === true
-          ? <SearchBarFoods />
+          ? <SearchBarFoods title={ title } />
           : null
       }
     </header>

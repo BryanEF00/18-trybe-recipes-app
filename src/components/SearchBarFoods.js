@@ -1,6 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import {
+  byMainIngredient,
+  cocktailsByFirstLetter,
+  mealByName,
+  mealsByFirstLetter,
+  requestApi,
+} from '../services/ApiServece';
 
-function SearchBarFoods() {
+function SearchBarFoods({ title }) {
+  const [itemSearch, setItemSearch] = useState('');
+  const [selectSearch, setSelectSearch] = useState();
+  const [results, setResults] = useState();
+
+  function getItemSearch({ target }) {
+    const valor = target.value;
+    setItemSearch(valor);
+  }
+
+  function spanAlert() {
+    const lengthValor = itemSearch.split('');
+    if (selectSearch === 'first-letter' && lengthValor.length > 1) {
+      alert('Your search must have only 1 (one) character');
+    }
+  }
+
+  useEffect(() => {
+    spanAlert();
+  }, [itemSearch]);
+
+  function getSelectSearch({ target }) {
+    const valor = target.value;
+    setSelectSearch(valor);
+  }
+
+  function methodtSearch() {
+    if (selectSearch === 'name') {
+      if (title === 'Foods') return mealByName;
+      if (title === 'Drinks') return cocktailByName;
+    }
+    if (selectSearch === 'ingredient') {
+      if (title === 'Foods') return byMainIngredient;
+      if (title === 'Drinks') return byIngredient;
+    }
+    if (selectSearch === 'first-letter') {
+      if (title === 'Foods') return mealsByFirstLetter;
+      if (title === 'Drinks') return cocktailsByFirstLetter;
+    }
+  }
+
+  async function searchApi() {
+    const temp = await requestApi(methodtSearch(), itemSearch);
+    setResults(temp);
+  }
+
+  console.log(results);
+
   return (
     <fieldset>
       <div>
@@ -8,44 +63,51 @@ function SearchBarFoods() {
           type="text"
           data-testid="search-input"
           id="search-input"
+          onChange={ getItemSearch }
         />
       </div>
       <div />
       <div>
         <label
-          htmlFor="select-ingredient"
+          htmlFor="select-methodSearch"
+          onChange={ getSelectSearch }
         >
           <input
             type="radio"
-            name="select-ingredient"
-            value="name"
-            data-testid="ingredient-search-radio"
-          />
-          Name
-          <input
-            type="radio"
-            name="select-ingredient"
+            name="select-methodSearch"
             value="ingredient"
-            data-testid="name-search-radio"
+            data-testid="ingredient-search-radio"
           />
           Ingredient
           <input
             type="radio"
-            name="select-ingredient"
-            value="nationaldate"
+            name="select-methodSearch"
+            value="name"
+            data-testid="name-search-radio"
+          />
+          Name
+          <input
+            type="radio"
+            name="select-methodSearch"
+            value="first-letter"
             data-testid="first-letter-search-radio"
           />
-          Frist Letter
+          First letter
         </label>
       </div>
       <button
         type="button"
         data-testid="exec-search-btn"
+        onClick={ searchApi }
       >
         Search
       </button>
     </fieldset>
   );
 }
+
+SearchBarFoods.propTypes = {
+  title: PropTypes.string,
+}.isRequired;
 
 export default SearchBarFoods;

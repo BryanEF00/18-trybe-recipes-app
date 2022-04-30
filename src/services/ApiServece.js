@@ -1,3 +1,4 @@
+// End-points dos receitas //
 export const mealByName = 'www.themealdb.com/api/json/v1/1/search.php?s=';
 export const mealsByFirstLetter = 'www.themealdb.com/api/json/v1/1/search.php?f=';
 export const fullMealDetailsById = 'www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -9,6 +10,7 @@ export const allIngredients = 'www.themealdb.com/api/json/v1/1/list.php?$i=';
 export const byMainIngredient = 'www.themealdb.com/api/json/v1/1/filter.php?i=';
 export const byCategory = 'www.themealdb.com/api/json/v1/1/filter.php?c=';
 export const byArea = 'www.themealdb.com/api/json/v1/1/filter.php?a=';
+// End-points dos drinks//
 export const cocktailByName = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 export const cocktailsByFirstLetter = 'www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 export const ingredientIyName = 'www.thecocktaildb.com/api/json/v1/1/search.php?i=';
