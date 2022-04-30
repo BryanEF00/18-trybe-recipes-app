@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  byIngredient,
   byMainIngredient,
+  cocktailByName,
   cocktailsByFirstLetter,
   mealByName,
   mealsByFirstLetter,
@@ -21,12 +23,13 @@ function SearchBarFoods({ title }) {
   function spanAlert() {
     const lengthValor = itemSearch.split('');
     if (selectSearch === 'first-letter' && lengthValor.length > 1) {
-      alert('Your search must have only 1 (one) character');
+      global.alert('Your search must have only 1 (one) character');
     }
   }
 
   useEffect(() => {
     spanAlert();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemSearch]);
 
   function getSelectSearch({ target }) {
