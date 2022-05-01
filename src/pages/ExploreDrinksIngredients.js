@@ -13,7 +13,7 @@ function ExploreDrinksIngredients() {
       const data = await requestApi(cocktailIngredients, 'list');
       const TOTAL_SIZE = 12;
 
-      setIngredients(data.drinks.splice(0, TOTAL_SIZE));
+      setIngredients(data.drinks.slice(0, TOTAL_SIZE));
     };
     ingredientsData();
   }, []);

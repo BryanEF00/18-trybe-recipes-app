@@ -1,12 +1,26 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import FoodsContext from '../context/FoodsContext';
+import { byMainIngredient, requestApi } from '../services/ApiServece';
 import './FoodIngredientsCard.css';
 
 function FoodIngredientsCard({ data: { ingredient: { strIngredient }, index } }) {
+  const { handleExploreIngredient } = useContext(FoodsContext);
+  const history = useHistory();
+
+  const handleClick = async () => {
+    const filterByIngredient = await requestApi(byMainIngredient, strIngredient);
+    handleExploreIngredient(filterByIngredient.meals);
+    history.push('/foods');
+  };
+
   return (
-    <div
+    <button
       data-testid={ `${index}-ingredient-card` }
+      type="button"
       className="ingredientsCard"
+      onClick={ handleClick }
     >
       <img
         data-testid={ `${index}-card-img` }
@@ -20,7 +34,7 @@ function FoodIngredientsCard({ data: { ingredient: { strIngredient }, index } })
       >
         {strIngredient}
       </div>
-    </div>
+    </button>
   );
 }
 

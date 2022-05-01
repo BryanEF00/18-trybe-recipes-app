@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import FoodsContext from './FoodsContext';
 
 function FoodsProvider({ children }) {
+  const [data, setData] = useState({
+    exploreByIngredient: [],
+  });
+
+  const handleExploreIngredient = (ingredient) => {
+    setData((prev) => ({ ...prev, exploreByIngredient: ingredient }));
+  };
+
   return (
-    <FoodsContext.Provider>
+    <FoodsContext.Provider value={ { ...data, handleExploreIngredient } }>
       {children}
     </FoodsContext.Provider>
   );
