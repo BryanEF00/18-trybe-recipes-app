@@ -4,7 +4,7 @@ export const fullMealDetailsById = 'www.themealdb.com/api/json/v1/1/lookup.php?i
 export const singleRandomMeal = 'www.themealdb.com/api/json/v1/1/random.php';
 export const allMealCategories = 'www.themealdb.com/api/json/v1/1/categories.php';
 export const allCategories = 'www.themealdb.com/api/json/v1/1/list.php?$c=';
-export const allArea = 'www.themealdb.com/api/json/v1/1/list.php?$a=';
+export const allArea = 'www.themealdb.com/api/json/v1/1/list.php?a=';
 export const allIngredients = 'www.themealdb.com/api/json/v1/1/list.php?i=';
 export const byMainIngredient = 'www.themealdb.com/api/json/v1/1/filter.php?i=';
 export const byCategory = 'www.themealdb.com/api/json/v1/1/filter.php?c=';
