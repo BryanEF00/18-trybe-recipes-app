@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import './Header.css';
+import SearchBarFoods from './SearchBarFoods';
 
 function Header({ title, withSearchButton }) {
   const [onInputSearch, setOnInputSearch] = useState(false);
@@ -58,12 +59,7 @@ function Header({ title, withSearchButton }) {
       </div>
       {
         onInputSearch === true
-          ? (
-            <input
-              type="text"
-              data-testid="search-input"
-              id="search-input"
-            />)
+          ? <SearchBarFoods title={ title } />
           : null
       }
     </header>
