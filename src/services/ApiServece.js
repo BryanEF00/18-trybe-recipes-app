@@ -4,8 +4,8 @@ export const fullMealDetailsById = 'www.themealdb.com/api/json/v1/1/lookup.php?i
 export const singleRandomMeal = 'www.themealdb.com/api/json/v1/1/random.php';
 export const allMealCategories = 'www.themealdb.com/api/json/v1/1/categories.php';
 export const allCategories = 'www.themealdb.com/api/json/v1/1/list.php?$c=';
-export const allArea = 'www.themealdb.com/api/json/v1/1/list.php?$a=';
-export const allIngredients = 'www.themealdb.com/api/json/v1/1/list.php?$i=';
+export const allArea = 'www.themealdb.com/api/json/v1/1/list.php?a=';
+export const allIngredients = 'www.themealdb.com/api/json/v1/1/list.php?i=';
 export const byMainIngredient = 'www.themealdb.com/api/json/v1/1/filter.php?i=';
 export const byCategory = 'www.themealdb.com/api/json/v1/1/filter.php?c=';
 export const byArea = 'www.themealdb.com/api/json/v1/1/filter.php?a=';
@@ -25,7 +25,7 @@ export const byGlass = 'www.thecocktaildb.com/api/json/v1/1/filter.php?g=';/* Co
 /* www.thecocktaildb.com/api/json/v1/1/filter.php?g=Champagne_flute */
 export const categories = 'www.thecocktaildb.com/api/json/v1/1/list.php?c=';/* list */
 export const glasses = 'www.thecocktaildb.com/api/json/v1/1/list.php?g=';/* list */
-export const ingredients = 'www.thecocktaildb.com/api/json/v1/1/list.php?i=';/* list */
+export const cocktailIngredients = 'www.thecocktaildb.com/api/json/v1/1/list.php?i=';/* list */
 export const alcoholicFilters = 'www.thecocktaildb.com/api/json/v1/1/list.php?a=';/* list */
 
 // A mesma função pode ser usada para fazer todas as requisições//

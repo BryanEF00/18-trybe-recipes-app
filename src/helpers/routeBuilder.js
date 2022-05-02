@@ -15,11 +15,13 @@ import Foods from '../pages/Foods';
 import InProgressDrinks from '../pages/InProgressDrinks';
 import InProgressFoods from '../pages/InProgressFoods';
 import Login from '../pages/Login';
+import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
 
 const pageList = [Login, Foods, Drinks, DetailedFoods, DetailedDrinks, InProgressFoods,
   InProgressDrinks, Explore, ExploreFoods, ExploreDrinks, ExploreFoodsIngredients,
-  ExploreDrinksIngredients, ExploreNacionalities, Profile, DoneRecipes, FavoriteRecipes];
+  ExploreDrinksIngredients, ExploreNacionalities, NotFound, Profile, DoneRecipes,
+  FavoriteRecipes];
 
 const UrlList = [
   '/',
@@ -35,6 +37,7 @@ const UrlList = [
   '/explore/foods/ingredients',
   '/explore/drinks/ingredients',
   '/explore/foods/nationalities',
+  '/explore/drinks/nationalities',
   '/profile',
   '/done-recipes',
   '/favorite-recipes',
