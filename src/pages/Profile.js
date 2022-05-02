@@ -1,19 +1,28 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { readInLocalStorage } from '../services/localStorage';
 import './Profile.css';
 
 function Profile({ history }) {
-  const { email } = readInLocalStorage('user');
+  const [userEmail, setUserEmail] = useState({ email: '' });
+
+  useEffect(() => {
+    if (readInLocalStorage('user') === null) {
+      setUserEmail({ email: 'mail@mail.com' });
+    } else {
+      setUserEmail(readInLocalStorage('user'));
+    }
+  }, []);
+
   return (
     <div>
       <Header
         title="Profile"
       />
       <div className="profile">
-        <h1 data-testid="profile-email">{email}</h1>
+        <h1 data-testid="profile-email">{userEmail.email}</h1>
         <button
           className="btn btn-outline-secondary"
           type="button"
