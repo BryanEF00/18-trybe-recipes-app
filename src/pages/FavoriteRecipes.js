@@ -4,7 +4,9 @@ import Header from '../components/Header';
 function FavoriteRecipes() {
   return (
     <div>
-      <Header />
+      <Header
+        title="Favorite Recipes"
+      />
       <p>RECEITAS FAVORITAS</p>
     </div>
   );

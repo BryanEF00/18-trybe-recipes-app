@@ -8,7 +8,9 @@ function Profile({ history }) {
   const { email } = JSON.parse(localStorage.user);
   return (
     <div>
-      <Header />
+      <Header
+        title="Profile"
+      />
       <p>PÁGINA DE PERFIL</p>
       <div className="profile">
         <h1 data-testid="profile-email">{ email }</h1>

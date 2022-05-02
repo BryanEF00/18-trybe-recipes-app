@@ -1,0 +1,28 @@
+.header {
+  align-items: center;
+  background-color: silver;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: space-around;
+  position: initial;
+  width: 100%;
+}
+
+.header div {
+  align-items: center;
+  background-color: silver;
+  bottom: 0;
+  display: flex;
+  height: auto;
+  justify-content: space-around;
+  position: initial;
+  width: 100%;
+}
+
+.search {
+  background: transparent;
+  border: none;
+  outline: none;
+}
