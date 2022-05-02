@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import DrinksContext from '../context/DrinksContext';
 
 function Drinks() {
-  const { exploreByIngredient } = useContext(DrinksContext);
+  const { displayDrinkRecipe } = useContext(DrinksContext);
   const TOTAL_SIZE = 12;
 
   return (
@@ -17,8 +17,8 @@ function Drinks() {
         className="d-flex flex-row flex-wrap justify-content-around"
       >
         {
-          exploreByIngredient.length > 0
-          && exploreByIngredient.slice(0, TOTAL_SIZE)
+          displayDrinkRecipe.length > 0
+          && displayDrinkRecipe.slice(0, TOTAL_SIZE)
             .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
               <div
                 className="card col-5 shadow p-3 mb-5 bg-body rounded"

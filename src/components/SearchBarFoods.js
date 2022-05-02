@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import DrinksContext from '../context/DrinksContext';
+import FoodsContext from '../context/FoodsContext';
 import {
   byIngredient,
   byMainIngredient,
@@ -11,6 +13,9 @@ import {
 } from '../services/ApiServece';
 
 function SearchBarFoods({ title }) {
+  const { handleDisplayFoodRecipe } = useContext(FoodsContext);
+  const { handleDisplayDrinkRecipe } = useContext(DrinksContext);
+
   const [itemSearch, setItemSearch] = useState('');
   const [selectSearch, setSelectSearch] = useState();
   const [results, setResults] = useState([]);
@@ -61,8 +66,14 @@ function SearchBarFoods({ title }) {
 
   async function searchApi() {
     const temp = await requestApi(methodtSearch(), itemSearch);
-    if (title === 'Foods') setResults(temp.meals);
-    if (title === 'Drinks') setResults(temp.drinks);
+    if (title === 'Foods') {
+      setResults(temp.meals);
+      handleDisplayFoodRecipe(temp.meals);
+    }
+    if (title === 'Drinks') {
+      setResults(temp.drinks);
+      handleDisplayDrinkRecipe(temp.drinks);
+    }
     setOnAlert(true);
   }
 

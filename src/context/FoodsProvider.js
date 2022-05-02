@@ -4,15 +4,15 @@ import FoodsContext from './FoodsContext';
 
 function FoodsProvider({ children }) {
   const [data, setData] = useState({
-    exploreByIngredient: [],
+    displayFoodRecipe: [],
   });
 
-  const handleExploreIngredient = (ingredient) => {
-    setData((prev) => ({ ...prev, exploreByIngredient: ingredient }));
+  const handleDisplayFoodRecipe = (recipes) => {
+    setData((prev) => ({ ...prev, displayFoodRecipe: recipes }));
   };
 
   return (
-    <FoodsContext.Provider value={ { ...data, handleExploreIngredient } }>
+    <FoodsContext.Provider value={ { ...data, handleDisplayFoodRecipe } }>
       {children}
     </FoodsContext.Provider>
   );

@@ -6,12 +6,12 @@ import { byIngredient, requestApi } from '../services/ApiServece';
 import './DrinkIngredientsCard.css';
 
 function DrinkIngredientsCard({ data: { ingredient: { strIngredient1 }, index } }) {
-  const { handleExploreIngredient } = useContext(DrinksContext);
+  const { handleDisplayDrinkRecipe } = useContext(DrinksContext);
   const history = useHistory();
 
   const handleClick = async () => {
     const filterByIngredient = await requestApi(byIngredient, strIngredient1);
-    handleExploreIngredient(filterByIngredient.drinks);
+    handleDisplayDrinkRecipe(filterByIngredient.drinks);
     history.push('/drinks');
   };
 
