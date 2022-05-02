@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FoodIngredientsCard from '../components/FoodIngredientsCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import { allIngredients, requestApi } from '../services/ApiServece';
 import './ExploreIngredients.css';
 
@@ -32,7 +33,7 @@ function ExploreFoodsIngredients() {
                 key={ index }
                 data={ { ingredient, index } }
               />))
-            : (<div>Loading...</div>)
+            : (<Loading />)
         }
       </div>
       <Footer />

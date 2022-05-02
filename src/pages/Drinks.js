@@ -13,28 +13,35 @@ function Drinks() {
         title="Drinks"
         withSearchButton
       />
-      {
-        exploreByIngredient.length > 0
-        && exploreByIngredient.slice(0, TOTAL_SIZE)
-          .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-            <div
-              data-testid={ `${index}-recipe-card` }
-              key={ idDrink }
-            >
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ strDrinkThumb }
-                alt={ strDrink }
-                style={ { height: 100 } }
-              />
+      <div
+        className="d-flex flex-row flex-wrap justify-content-around"
+      >
+        {
+          exploreByIngredient.length > 0
+          && exploreByIngredient.slice(0, TOTAL_SIZE)
+            .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
               <div
-                data-testid={ `${index}-card-name` }
+                className="card col-5 shadow p-3 mb-5 bg-body rounded"
+                data-testid={ `${index}-recipe-card` }
+                key={ idDrink }
               >
-                {strDrink}
+                <img
+                  className="card-img-top"
+                  data-testid={ `${index}-card-img` }
+                  src={ strDrinkThumb }
+                  alt={ strDrink }
+                  style={ { height: 100 } }
+                />
+                <div
+                  className="card-text"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {strDrink}
+                </div>
               </div>
-            </div>
-          ))
-      }
+            ))
+        }
+      </div>
       <Footer />
     </div>
   );

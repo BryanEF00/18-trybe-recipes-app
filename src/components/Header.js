@@ -41,7 +41,7 @@ function Header({ title, withSearchButton }) {
         </Link>
         <h3
           data-testid="page-title"
-          className="title"
+          className="text-center title"
           id="tile"
         >
           { title }

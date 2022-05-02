@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DrinkIngredientsCard from '../components/DrinkIngredientsCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import { cocktailIngredients, requestApi } from '../services/ApiServece';
 import './ExploreIngredients.css';
 
@@ -28,7 +29,7 @@ function ExploreDrinksIngredients() {
           ingredients.length > 0
             ? ingredients.map((ingredient, index) => (
               <DrinkIngredientsCard key={ index } data={ { ingredient, index } } />))
-            : (<div>Loading...</div>)
+            : (<Loading />)
         }
       </div>
       <Footer />
