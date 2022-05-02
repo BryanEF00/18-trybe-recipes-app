@@ -11,7 +11,6 @@ function Profile({ history }) {
       <Header
         title="Profile"
       />
-      <p>PÁGINA DE PERFIL</p>
       <div className="profile">
         <h1 data-testid="profile-email">{ email }</h1>
         <button
@@ -42,7 +41,7 @@ function Profile({ history }) {
 }
 
 Profile.propTypes = {
-  history: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Profile;
