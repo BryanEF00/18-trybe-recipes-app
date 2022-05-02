@@ -80,6 +80,7 @@ function SearchBarFoods({ title }) {
     <fieldset>
       <div>
         <input
+          className="input-group"
           type="text"
           data-testid="search-input"
           id="search-input"
@@ -87,8 +88,9 @@ function SearchBarFoods({ title }) {
         />
       </div>
       <div />
-      <div>
+      <div className="mt-2">
         <label
+          className="d-flex flex-row justify-content-around"
           htmlFor="select-methodSearch"
           onChange={ getSelectSearch }
         >
@@ -116,6 +118,7 @@ function SearchBarFoods({ title }) {
         </label>
       </div>
       <button
+        className="btn btn-outline-secondary"
         type="button"
         data-testid="exec-search-btn"
         onClick={ searchApi }

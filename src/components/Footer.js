@@ -8,7 +8,7 @@ function Footer() {
   return (
     <div
       data-testid="footer"
-      className="card-footer fixed-bottom d-flex justify-content-between"
+      className="bg-light fixed-bottom d-flex justify-content-between p-2"
     >
       <Link
         to="/drinks"

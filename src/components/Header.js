@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
-import './Header.css';
+// import './Header.css';
 import SearchBarFoods from './SearchBarFoods';
 
 function Header({ title, withSearchButton }) {
@@ -17,12 +17,20 @@ function Header({ title, withSearchButton }) {
   return (
     <header
       id="header"
-      className="header"
+      className="d-flex flex-column align-items-center header"
     >
       <div
+        className="
+          container-fluid
+          bg-light
+          p-2
+          d-flex
+          justify-content-between
+          align-items-center"
         id="icons"
       >
         <Link
+          className="btn btn-light col-2"
           to="/profile"
         >
           <img
@@ -44,7 +52,7 @@ function Header({ title, withSearchButton }) {
               <button
                 type="button"
                 id="search"
-                className="search"
+                className="btn btn-light col-2 my-0"
                 onClick={ InputSearch }
               >
                 <img
