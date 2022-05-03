@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import DrinksContext from '../context/DrinksContext';
@@ -6,6 +7,7 @@ import DrinksContext from '../context/DrinksContext';
 function Drinks() {
   const { displayDrinkRecipe } = useContext(DrinksContext);
   const TOTAL_SIZE = 12;
+  const history = useHistory();
 
   return (
     <div>
@@ -20,25 +22,27 @@ function Drinks() {
           displayDrinkRecipe.length > 0
           && displayDrinkRecipe.slice(0, TOTAL_SIZE)
             .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-              <div
-                className="card col-5 shadow p-3 mb-5 bg-body rounded"
+              <button
                 data-testid={ `${index}-recipe-card` }
+                className="card col-5 shadow p-3 mb-5 bg-body rounded"
                 key={ idDrink }
+                type="button"
+                onClick={ () => history.push(`/drinks/${idDrink}`) }
               >
                 <img
-                  className="card-img-top"
                   data-testid={ `${index}-card-img` }
+                  className="card-img-top"
                   src={ strDrinkThumb }
                   alt={ strDrink }
                   style={ { height: 100 } }
                 />
                 <div
-                  className="card-text"
                   data-testid={ `${index}-card-name` }
+                  className="card-text"
                 >
                   {strDrink}
                 </div>
-              </div>
+              </button>
             ))
         }
       </div>
