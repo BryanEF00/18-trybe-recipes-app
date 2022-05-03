@@ -67,12 +67,22 @@ function SearchBarFoods({ title }) {
   async function searchApi() {
     const temp = await requestApi(methodtSearch(), itemSearch);
     if (title === 'Foods') {
-      setResults(temp.meals);
-      handleDisplayFoodRecipe(temp.meals);
+      if (temp.meals === null) {
+        setOnAlert(true);
+        setResults([]);
+      } else {
+        setResults(temp.meals);
+        handleDisplayFoodRecipe(temp.meals);
+      }
     }
     if (title === 'Drinks') {
-      setResults(temp.drinks);
-      handleDisplayDrinkRecipe(temp.drinks);
+      if (temp.drinks === null) {
+        setOnAlert(true);
+        setResults([]);
+      } else {
+        setResults(temp.drinks);
+        handleDisplayDrinkRecipe(temp.drinks);
+      }
     }
     setOnAlert(true);
   }
