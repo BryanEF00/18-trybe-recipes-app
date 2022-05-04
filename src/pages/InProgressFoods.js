@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { fullMealDetailsById, requestApi } from '../services/ApiServece';
+import ShareIcon from '../images/shareIcon.svg';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ListIngredientCard from '../components/listIngredientCard';
 
 function InProgressFoods() {
   const [meal, setMeal] = useState({});
-  const inngredienteTest = '52977-ingredient-step';
 
   async function searchApi() {
     const temp = await requestApi(fullMealDetailsById, '52977');
@@ -20,38 +22,46 @@ function InProgressFoods() {
 
   return (
     <div>
-      1
       <img
         data-testid="recipe-photo"
         src={ meal.strMealThumb }
         alt="imagem da receita"
+        className="card col-12 shadow p-3 mb-5 bg-body rounded"
       />
-      <h2
-        data-testid="recipe-title"
-      >
-        { meal.strMeal }
-      </h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        botão compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        Favoriar
-      </button>
+      <div>
+        <h2>
+          { meal.strMeal }
+        </h2>
+        <button
+          type="button"
+          className="btn btn-light col-2"
+          data-testid="share-btn"
+        >
+          <img
+            src={ ShareIcon }
+            alt="compart icon"
+          />
+        </button>
+        <button
+          type="button"
+          className="btn btn-light col-2"
+          data-testid="favorite-btn"
+        >
+          <img
+            src={ WhiteHeartIcon }
+            alt="compart icon"
+          />
+        </button>
+      </div>
       <h3
         data-testid="recipe-category"
       >
         { meal.strCategory }
       </h3>
-      <fieldset
-        data-testid={ inngredienteTest }
-      >
-        ingredientes
+      <fieldset>
+        <ListIngredientCard
+          meal={ meal }
+        />
       </fieldset>
       <fieldset
         data-testid="instructions"
