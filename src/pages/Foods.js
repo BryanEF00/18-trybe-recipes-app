@@ -1,13 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import FoodsContext from '../context/FoodsContext';
+import { mealByName, requestApi } from '../services/ApiServece';
 
 function Foods() {
-  const { displayFoodRecipe } = useContext(FoodsContext);
+  const { displayFoodRecipe, handleDisplayFoodRecipe } = useContext(FoodsContext);
   const TOTAL_SIZE = 12;
   const history = useHistory();
+
+  useEffect(() => {
+    async function firstRender() {
+      const { meals } = await requestApi(mealByName, '');
+      handleDisplayFoodRecipe(meals);
+    }
+    firstRender();
+  }, []);
 
   return (
     <div>
