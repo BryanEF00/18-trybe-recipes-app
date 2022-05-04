@@ -1,45 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
-import { requestApi, detailsById } from '../services/ApiServece'
+import { requestApi, detailsById } from '../services/ApiServece';
 
 function DetailedDrinks() {
   const { id } = useParams();
-  const endPoint = 'www.themealdb.com/api/json/v1/1/search.php?s='
+  const endPoint = 'www.themealdb.com/api/json/v1/1/search.php?s=';
   const initState = {
     strDrinkThumb: '',
     strDrink: '',
     strCategory: '',
     strInstructions: '',
-    strAlcoholic: ''
-  }
-  const [state, altState] = useState(initState)
-  const [sugestions, altSugestions] = useState([])
-  
+    strAlcoholic: '',
+  };
+  const [state, altState] = useState(initState);
+  const [sugestions, altSugestions] = useState([]);
+
   const getSugestions = async () => {
-    const pega = await requestApi(endPoint,'')
-    await altSugestions(pega.meals)
-  }
+    const pega = await requestApi(endPoint, '');
+    await altSugestions(pega.meals);
+  };
   const getDetails = async () => {
-    const data = await requestApi(detailsById, id)
+    const data = await requestApi(detailsById, id);
     const drink = data.drinks[0];
     console.log(drink);
-    altState( { ...drink } );
-    const ingredients = Object.entries(drink).filter(meal => (meal[0].includes('Ingredient')) && meal[1])
-    const quantities = Object.entries(drink).filter(meal => (meal[0].includes('Measure')) && meal[1])
+    altState({ ...drink });
+    const ingredients = Object.entries(drink).filter((meal) => (meal[0].includes('Ingredient')) && meal[1]);
+    const quantities = Object.entries(drink).filter((meal) => (meal[0].includes('Measure')) && meal[1]);
     altState((prev) => ({ ...prev, ingredients, quantities }));
-  }
+  };
 
   const renderCards = () => {
     if (sugestions.length > 0) {
-      const list = sugestions.map( (recipe, index) => {
-          return <RecipeCard data={ { index, ...recipe, drink: true } } />
-      })
-      return list;
+      const list = sugestions.map((recipe, index) => <RecipeCard data={ { index, ...recipe, drink: true } } />);
+      return list.slice(0,6);
     }
-  }
+  };
 
-  useEffect(() => {getDetails(); getSugestions();}, [])
+  useEffect(() => { getDetails(); getSugestions(); }, []);
 
   return (
     <div className="detail">
@@ -53,11 +51,9 @@ function DetailedDrinks() {
       </span>
       <hr />
       <h2>Ingredientes</h2>
-      <ul >
+      <ul>
         {
-          state.ingredients && state.ingredients.map( (li, index) => {
-              return <li data-testid={ `${index}-ingredient-name-and-measure` }>{ `-${li[1]} - ${state.quantities[index][1]}` }</li>
-          } )
+          state.ingredients && state.ingredients.map((li, index) => <li data-testid={ `${index}-ingredient-name-and-measure` }>{ `-${li[1]} - ${state.quantities[index][1]}` }</li>)
         }
       </ul>
       <hr />
@@ -65,8 +61,14 @@ function DetailedDrinks() {
       <p data-testid="instructions">
         { state.strInstructions }
       </p>
-      <button type="button" data-testid="start-recipe-btn">START</button>
-      <div className='sugestion'>
+      <button
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        START RECIPE
+      </button>
+      <div className="sugestion">
         { renderCards() }
       </div>
     </div>

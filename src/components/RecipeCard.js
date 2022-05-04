@@ -5,13 +5,13 @@ import ExploreIcon from '../images/exploreIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
 
 function RecipeCard(props) {
-	const {  idDrink, strDrink, strDrinkThumb, drink } = props.data
-	const { index, idMeal, strMeal, strMealThumb } = props.data
-	const drinkCard = (
-		<div
-			className="card col-5 shadow p-3 mb-5 bg-body rounded"
-			data-testid={ `${index}-recomendation-card` }
-			key={ idDrink }
+  const { idDrink, strDrink, strDrinkThumb, drink } = props.data;
+  const { index, idMeal, strMeal, strMealThumb } = props.data;
+  const drinkCard = (
+    <div
+      className="card col-5 shadow p-3 mb-5 bg-body rounded"
+      data-testid={ `${index}-recomendation-card` }
+      key={ idDrink }
     >
       <img
         className="card-img-top"
@@ -21,19 +21,19 @@ function RecipeCard(props) {
         style={ { height: 100 } }
       />
       <div
-      	className="card-text"
-      	data-testid={ `${index}-card-name` }
+        className="card-text"
+        data-testid={ `${index}-recomendation-title` }
       >
-      	{strDrink}
-    	</div>
+        {strDrink}
+      </div>
     </div>
-	);
+  );
 
-	const mealCard = (
-		<div
-			className="card col-5 shadow p-3 mb-5 bg-body rounded"
-			data-testid={ `${index}-recomendation-card` }
-			key={ idMeal }
+  const mealCard = (
+    <div
+      className="card col-5 shadow p-3 mb-5 bg-body rounded"
+      data-testid={ `${index}-recomendation-card` }
+      key={ idMeal }
     >
       <img
         className="card-img-top"
@@ -43,18 +43,18 @@ function RecipeCard(props) {
         style={ { height: 100 } }
       />
       <div
-      	className="card-text"
-      	data-testid={ `${index}-card-name` }
+        className="card-text"
+        data-testid={ `${index}-recomendation-title` }
       >
-      	{strMeal}
-    	</div>
+        {strMeal}
+      </div>
     </div>
-	);
+  );
 
   return (
-		<>
-    	{ drink ? mealCard : drinkCard }
-		</>
+    <>
+      { drink ? mealCard : drinkCard }
+    </>
   );
 }
 
