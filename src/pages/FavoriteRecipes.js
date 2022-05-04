@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 import Header from '../components/Header';
 import { readInLocalStorage, saveInLocalStorage } from '../services/localStorage';
+import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
@@ -29,7 +30,9 @@ function FavoriteRecipes() {
       <Header
         title="Favorite Recipes"
       />
-      <section>
+      <section
+        className="FavoriteRecipesFilters"
+      >
         <button
           data-testid="filter-by-all-btn"
           type="button"

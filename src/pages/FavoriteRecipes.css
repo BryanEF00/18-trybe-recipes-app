@@ -1,0 +1,15 @@
+/* stylelint-disable linebreaks */
+.FavoriteRecipesFilters {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.FavoriteRecipesFilters button {
+  background-color: silver;
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  height: 45px;
+  width: 102px;
+}
