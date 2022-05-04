@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import DrinksContext from './DrinksContext';
 
@@ -10,7 +11,7 @@ function DrinksProvider({ children }) {
 }
 
 DrinksProvider.propTypes = {
-  children: PropTypes.arrayOf[PropTypes.element].isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default DrinksProvider;

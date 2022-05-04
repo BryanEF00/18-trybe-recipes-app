@@ -5,7 +5,9 @@ import Footer from '../components/Footer';
 function Profile() {
   return (
     <div>
-      <Header />
+      <Header
+        title="Profile"
+      />
       <p>PÁGINA DE PERFIL</p>
       <Footer />
     </div>
