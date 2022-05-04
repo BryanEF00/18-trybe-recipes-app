@@ -1,50 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { fullMealDetailsById, requestApi } from '../services/ApiServece';
 
 function InProgressFoods() {
-  const inngredienteTest = `${index}-ingredient-step`;
+  const [meal, setMeal] = useState({});
+  const inngredienteTest = '52977-ingredient-step';
+
+  async function searchApi() {
+    const temp = await requestApi(fullMealDetailsById, '52977');
+    setMeal(temp.meals[0]);
+  }
+
+  useEffect(() => {
+    searchApi();
+  }, []);
+
+  useEffect(() => {
+    console.log(meal);
+  }, [meal]);
 
   return (
     <div>
-      <div
+      1
+      <img
         data-testid="recipe-photo"
-      >
-        Foto
-      </div>
-      <div
+        src={ meal.strMealThumb }
+        alt="imagem da receita"
+      />
+      <h2
         data-testid="recipe-title"
       >
-        title
-      </div>
-      <div
+        { meal.strMeal }
+      </h2>
+      <button
+        type="button"
         data-testid="share-btn"
       >
         botão compartilhar
-      </div>
-      <div
+      </button>
+      <button
+        type="button"
         data-testid="favorite-btn"
       >
-        botão favoriar
-      </div>
-      <div
+        Favoriar
+      </button>
+      <h3
         data-testid="recipe-category"
       >
-        Categoria
-      </div>
-      <div
+        { meal.strCategory }
+      </h3>
+      <fieldset
         data-testid={ inngredienteTest }
       >
         ingredientes
-      </div>
-      <div
+      </fieldset>
+      <fieldset
         data-testid="instructions"
       >
-        Instruções
-      </div>
-      <div
+        { meal.strInstructions }
+      </fieldset>
+      <button
+        type="button"
         data-testid="finish-recipe-btn"
       >
-        botão finalizar
-      </div>
+        Finalizar
+      </button>
     </div>
   );
 }
