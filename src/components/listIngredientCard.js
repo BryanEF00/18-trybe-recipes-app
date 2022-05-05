@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ListIngredientCard({ banc }) {
-  const inngredienteTest = '52977-ingredient-step';
+  const inngredienteTest = '178319-ingredient-step';
 
   return (
     <div>

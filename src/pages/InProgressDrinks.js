@@ -8,7 +8,7 @@ function DetailedDrinks() {
   const [drink, setDrink] = useState({});
 
   async function searchApi() {
-    const temp = await requestApi(cocktailsByFirstLetter, '11007');
+    const temp = await requestApi(cocktailsByFirstLetter, '178319');
     setDrink(temp.drinks[0]);
   }
 
