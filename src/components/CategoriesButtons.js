@@ -7,6 +7,8 @@ import {
   byCategory,
   categories,
   category,
+  cocktailByName,
+  mealByName,
   requestApi,
 } from '../services/ApiServece';
 
@@ -19,6 +21,7 @@ function CategoriesButtons({ title }) {
   const [renderCategories, setRenderCategories] = useState([]);
   const [URL_FOODS] = useState(allCategories);
   const [URL_DRINKS] = useState(categories);
+  const [selected, setSelected] = useState('');
 
   useEffect(() => {
     console.log('title', title);
@@ -37,16 +40,31 @@ function CategoriesButtons({ title }) {
     getCategories();
   }, []);
 
-  const toggleCategory = async ({ target }) => {
-    const alvo = target.value;
-    console.log(alvo);
+  const allCategory = async () => {
     if (title === 'Foods') {
-      const { meals } = await requestApi(byCategory, alvo);
+      const { meals } = await requestApi(mealByName, '');
       handleDisplayFoodRecipe(meals);
     }
     if (title === 'Drinks') {
-      const { drinks } = await requestApi(category, alvo);
+      const { drinks } = await requestApi(cocktailByName, '');
       handleDisplayDrinkRecipe(drinks);
+    }
+  };
+
+  const toggleCategory = async ({ target }) => {
+    const alvo = target.value;
+    if (selected !== alvo) {
+      setSelected(alvo);
+      if (title === 'Foods') {
+        const { meals } = await requestApi(byCategory, alvo);
+        handleDisplayFoodRecipe(meals);
+      }
+      if (title === 'Drinks') {
+        const { drinks } = await requestApi(category, alvo);
+        handleDisplayDrinkRecipe(drinks);
+      }
+    } else {
+      allCategory();
     }
   };
 
@@ -60,10 +78,19 @@ function CategoriesButtons({ title }) {
       flex-wrap
       justify-content-around"
     >
+      <button
+        className="btn btn-secondary col-5 my-1"
+        data-testid="All-category-filter"
+        onClick={ allCategory }
+        type="button"
+        value="All"
+      >
+        All
+      </button>
       {renderCategories
         .map(({ strCategory }) => (
           <button
-            className="btn btn-secondary col-6 my-1"
+            className="btn btn-secondary col-5 my-1"
             data-testid={ `${strCategory}-category-filter` }
             key={ strCategory }
             onClick={ toggleCategory }
