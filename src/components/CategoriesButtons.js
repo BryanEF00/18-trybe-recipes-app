@@ -24,8 +24,6 @@ function CategoriesButtons({ title }) {
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
-    console.log('title', title);
-
     async function getCategories() {
       if (title === 'Foods') {
         const { meals } = await requestApi(URL_FOODS, 'list');

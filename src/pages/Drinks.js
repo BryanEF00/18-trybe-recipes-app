@@ -16,7 +16,9 @@ function Drinks() {
       const { drinks } = await requestApi(cocktailByName, '');
       handleDisplayDrinkRecipe(drinks);
     }
-    firstRender();
+    if (displayDrinkRecipe.length === 0) {
+      firstRender();
+    }
   }, []);
 
   return (

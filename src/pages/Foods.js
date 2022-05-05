@@ -16,7 +16,9 @@ function Foods() {
       const { meals } = await requestApi(mealByName, '');
       handleDisplayFoodRecipe(meals);
     }
-    firstRender();
+    if (displayFoodRecipe.length === 0) {
+      firstRender();
+    }
   }, []);
 
   return (
