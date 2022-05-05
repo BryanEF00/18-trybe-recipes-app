@@ -29,7 +29,9 @@ function InProgressFoods() {
         className="card col-12 shadow p-3 mb-5 bg-body rounded"
       />
       <div>
-        <h2>
+        <h2
+          data-testid="recipe-title"
+        >
           { meal.strMeal }
         </h2>
         <button
@@ -39,7 +41,7 @@ function InProgressFoods() {
         >
           <img
             src={ ShareIcon }
-            alt="compart icon"
+            alt="share icon"
           />
         </button>
         <button
@@ -60,9 +62,13 @@ function InProgressFoods() {
       </h3>
       <fieldset>
         <ListIngredientCard
-          meal={ meal }
+          meal={
+            Object.entries(meal).filter((item) => (item[0].includes('Ingredient'))
+            && item[1]).map((item) => item[1])
+          }
         />
       </fieldset>
+      <br />
       <fieldset
         data-testid="instructions"
       >

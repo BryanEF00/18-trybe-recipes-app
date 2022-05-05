@@ -3,22 +3,35 @@ import PropTypes from 'prop-types';
 
 function ListIngredientCard({ meal }) {
   const inngredienteTest = '52977-ingredient-step';
+  /* const [ingredtentList, setIngredtentList] = useState([]);
+
+  useEffect(() => {
+    setIngredtentList(meal);
+  }, []); */
+
   return (
-    <>
-      { meal.strIngredient1 }
-      { ' ' }
-      <input
-        type="checkbox"
-        data-testid={ inngredienteTest }
-        value={ meal.strIngredient1 }
-      />
-    </>
+    <div>
+      {
+        meal.map((item, index) => (
+          <div
+            key={ index }
+          >
+            { item }
+            { ' ' }
+            <input
+              type="checkbox"
+              data-testid={ inngredienteTest }
+              value={ item }
+            />
+          </div>
+        ))
+      }
+    </div>
   );
 }
 
 ListIngredientCard.propTypes = {
-  title: PropTypes.string,
-  withSearchButton: PropTypes.bool,
+  meal: PropTypes.arrayOf,
 }.isRequired;
 
 export default ListIngredientCard;
