@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ListIngredientCard({ meal }) {
+function ListIngredientCard({ banc }) {
   const inngredienteTest = '52977-ingredient-step';
-  /* const [ingredtentList, setIngredtentList] = useState([]);
-
-  useEffect(() => {
-    setIngredtentList(meal);
-  }, []); */
 
   return (
     <div>
       {
-        meal.map((item, index) => (
+        banc.map((item, index) => (
           <div
             key={ index }
           >
@@ -31,7 +26,7 @@ function ListIngredientCard({ meal }) {
 }
 
 ListIngredientCard.propTypes = {
-  meal: PropTypes.arrayOf,
+  banc: PropTypes.arrayOf,
 }.isRequired;
 
 export default ListIngredientCard;

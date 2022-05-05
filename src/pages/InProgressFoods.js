@@ -16,10 +16,6 @@ function InProgressFoods() {
     searchApi();
   }, []);
 
-  useEffect(() => {
-    console.log(meal);
-  }, [meal]);
-
   return (
     <div>
       <img
@@ -62,7 +58,7 @@ function InProgressFoods() {
       </h3>
       <fieldset>
         <ListIngredientCard
-          meal={
+          banc={
             Object.entries(meal).filter((item) => (item[0].includes('Ingredient'))
             && item[1]).map((item) => item[1])
           }
