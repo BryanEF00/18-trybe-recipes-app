@@ -23,7 +23,6 @@ function DetailedDrinks() {
   const getDetails = async () => {
     const data = await requestApi(detailsById, id);
     const drink = data.drinks[0];
-    console.log(drink);
     altState({ ...drink });
     const ingredients = Object.entries(drink).filter((meal) => (meal[0].includes('Ingredient')) && meal[1]);
     const quantities = Object.entries(drink).filter((meal) => (meal[0].includes('Measure')) && meal[1]);
@@ -33,7 +32,7 @@ function DetailedDrinks() {
   const renderCards = () => {
     if (sugestions.length > 0) {
       const list = sugestions.map((recipe, index) => <RecipeCard data={ { index, ...recipe, drink: true } } />);
-      return list.slice(0,6);
+      return list.slice(0, 6);
     }
   };
 

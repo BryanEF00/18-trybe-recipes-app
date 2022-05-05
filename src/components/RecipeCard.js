@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import DrinkIcon from '../images/drinkIcon.svg';
-import ExploreIcon from '../images/exploreIcon.svg';
-import MealIcon from '../images/mealIcon.svg';
+import PropTypes from 'prop-types';
 
 function RecipeCard(props) {
-  const { idDrink, strDrink, strDrinkThumb, drink } = props.data;
-  const { index, idMeal, strMeal, strMealThumb } = props.data;
+  const { data } = props;
+  const { idDrink, strDrink, strDrinkThumb, drink } = data;
+  const { index, idMeal, strMeal, strMealThumb } = data;
   const drinkCard = (
     <div
       className="card col-5 shadow p-3 mb-5 bg-body rounded"
@@ -51,11 +49,11 @@ function RecipeCard(props) {
     </div>
   );
 
-  return (
-    <>
-      { drink ? mealCard : drinkCard }
-    </>
-  );
+  return drink ? mealCard : drinkCard;
 }
+
+RecipeCard.propTypes = {
+  props: PropTypes.objectOf(PropTypes.any),
+}.isRequired;
 
 export default RecipeCard;

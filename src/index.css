@@ -42,3 +42,12 @@ code {
   bottom: 0;
   margin: 0;
 }
+
+.favBtn {
+  all: unset;
+  cursor: pointer;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+}

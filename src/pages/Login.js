@@ -20,10 +20,10 @@ function Login({ history }) {
   }
 
   const ongoingRecipes = {
-      cocktails: {
-      },
-      meals: {
-      }
+    cocktails: {
+    },
+    meals: {
+    },
   };
 
   function handleClick() {
