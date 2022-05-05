@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { readInLocalStorage } from '../services/localStorage';
-import './Profile.css';
+// import './Profile.css';
 
 function Profile({ history }) {
   const [userEmail, setUserEmail] = useState({ email: '' });
@@ -21,10 +21,23 @@ function Profile({ history }) {
       <Header
         title="Profile"
       />
-      <div className="profile">
-        <h1 data-testid="profile-email">{userEmail.email}</h1>
+      <div
+        className="
+          container-fluid
+          d-flex
+          flex-column
+          justify-content-center
+          profile"
+        style={ { height: '520px' } }
+      >
+        <h1
+          className="title mb-3"
+          data-testid="profile-email"
+        >
+          {userEmail.email}
+        </h1>
         <button
-          className="btn btn-outline-secondary"
+          className="btn btn-outline-secondary btn-block mb-3"
           type="button"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/done-recipes') }
@@ -32,7 +45,7 @@ function Profile({ history }) {
           Done Recipes
         </button>
         <button
-          className="btn btn-outline-secondary"
+          className="btn btn-outline-secondary btn-block mb-3"
           type="button"
           data-testid="profile-favorite-btn"
           onClick={ () => history.push('/favorite-recipes') }
@@ -40,7 +53,7 @@ function Profile({ history }) {
           Favorite Recipes
         </button>
         <button
-          className="btn btn-outline-secondary"
+          className="btn btn-outline-secondary btn-block mb-3"
           type="button"
           data-testid="profile-logout-btn"
           onClick={ () => { localStorage.clear(); history.push('/'); } }

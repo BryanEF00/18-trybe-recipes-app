@@ -1,13 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import CategoriesButtons from '../components/CategoriesButtons';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import FoodsContext from '../context/FoodsContext';
+import { mealByName, requestApi } from '../services/ApiServece';
 
 function Foods() {
-  const { displayFoodRecipe } = useContext(FoodsContext);
+  const { displayFoodRecipe, handleDisplayFoodRecipe } = useContext(FoodsContext);
   const TOTAL_SIZE = 12;
   const history = useHistory();
+
+  useEffect(() => {
+    async function firstRender() {
+      const { meals } = await requestApi(mealByName, '');
+      handleDisplayFoodRecipe(meals);
+    }
+    if (displayFoodRecipe.length === 0) {
+      firstRender();
+    }
+  }, []);
 
   return (
     <div>
@@ -18,6 +30,7 @@ function Foods() {
       <div
         className="d-flex flex-row flex-wrap justify-content-around"
       >
+        <CategoriesButtons title="Foods" />
         {
           displayFoodRecipe.length > 0
         && displayFoodRecipe.slice(0, TOTAL_SIZE)
