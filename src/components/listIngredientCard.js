@@ -10,12 +10,12 @@ function ListIngredientCard({ banc }) {
         banc.map((item, index) => (
           <div
             key={ index }
+            data-testid={ inngredienteTest }
           >
             { item }
             { ' ' }
             <input
               type="checkbox"
-              data-testid={ inngredienteTest }
               value={ item }
             />
           </div>
