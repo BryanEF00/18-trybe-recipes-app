@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import CategoriesButtons from '../components/CategoriesButtons';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import FoodsContext from '../context/FoodsContext';
@@ -27,6 +28,7 @@ function Foods() {
       <div
         className="d-flex flex-row flex-wrap justify-content-around"
       >
+        <CategoriesButtons title="Foods" />
         {
           displayFoodRecipe.length > 0
         && displayFoodRecipe.slice(0, TOTAL_SIZE)
