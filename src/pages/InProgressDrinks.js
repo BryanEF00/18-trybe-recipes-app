@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { cocktailsByFirstLetter, requestApi } from '../services/ApiServece';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -6,9 +7,10 @@ import ListIngredientCard from '../components/listIngredientCard';
 
 function DetailedDrinks() {
   const [drink, setDrink] = useState({});
+  const { id } = useParams();
 
   async function searchApi() {
-    const temp = await requestApi(cocktailsByFirstLetter, '178319');
+    const temp = await requestApi(cocktailsByFirstLetter, id);
     setDrink(temp.drinks[0]);
   }
 
@@ -62,6 +64,8 @@ function DetailedDrinks() {
             Object.entries(drink).filter((item) => (item[0].includes('Ingredient'))
             && item[1]).map((item) => item[1])
           }
+          title="cocktails"
+          id={ id }
         />
       </fieldset>
       <br />
