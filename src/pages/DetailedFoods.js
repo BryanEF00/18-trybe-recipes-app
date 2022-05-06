@@ -1,25 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import RecipeCard from '../components/RecipeCard';
+import { useHistory, useParams } from 'react-router-dom';
+import ButtonFavorite from '../components/buttonFavorit';
 import { requestApi, fullMealDetailsById } from '../services/ApiServece';
 import { saveInLocalStorage, readInLocalStorage } from '../services/localStorage';
-import Heart from '../images/blackHeartIcon.svg';
-import FullHeart from '../images/whiteHeartIcon.svg';
 
 const l = 'l';
 
 function DetailedFoods() {
   const { id } = useParams();
-  const endPoint = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-  const initState = {
+  const [state, altState] = useState({
     strMealThumb: '',
     strMeal: '',
     strCategory: '',
     strInstructions: '',
     strYoutube: '',
-  };
-  const [state, altState] = useState(initState);
-  const [sugestions, altSugestions] = useState([]);
+  });
   const history = useHistory();
 
   const ongoingRecipes = {
@@ -28,14 +24,11 @@ function DetailedFoods() {
     meals: {
     },
   };
+
   if (readInLocalStorage('inProgressRecipes') === null) {
     saveInLocalStorage('inProgressRecipes', ongoingRecipes);
   }
 
-  const getSugestions = async () => {
-    const pega = await requestApi(endPoint, '');
-    await altSugestions(pega.drinks);
-  };
   const getDetails = async () => {
     const data = await requestApi(fullMealDetailsById, id);
     const meal = data.meals[0];
@@ -45,17 +38,6 @@ function DetailedFoods() {
     const quantities = Object.entries(meal)
       .filter((ingredient) => (ingredient[0].includes('Measure')) && ingredient[1]);
     altState((prev) => ({ ...prev, ingredients, quantities }));
-  };
-
-  const renderCards = () => {
-    if (sugestions.length > 0) {
-      const list = sugestions
-        .map((recipe, index) => (
-          <RecipeCard key={ index } data={ { index, ...recipe, drink: false } } />
-        ));
-      const limit = 6;
-      return list.slice(0, limit);
-    }
   };
 
   const checkLocal = (local) => {
@@ -70,15 +52,6 @@ function DetailedFoods() {
     const ids = done.map((recipe) => recipe.id);
     return ids.includes(parseInt(id, 10));
   };
-
-  const verifyFav = () => {
-    checkLocal('favoriteRecipes');
-    const fav = readInLocalStorage('favoriteRecipes');
-    const ids = fav.map((recipe) => recipe.id);
-    return (ids.includes(parseInt(id, 10)) || ids.includes((id)));
-  };
-
-  const [isFav, setFav] = useState(verifyFav());
 
   const verify = () => {
     const { meals } = readInLocalStorage('inProgressRecipes');
@@ -100,12 +73,11 @@ function DetailedFoods() {
 
   const share = () => {
     navigator.clipboard.writeText(document.URL);
-    alert('Link copied!');
+    global.alert('Link copied!');
   };
 
   useEffect(() => {
     getDetails();
-    getSugestions();
   }, []);
 
   // -----Start recipe button-----------------------------------------------------------------------
@@ -121,52 +93,13 @@ function DetailedFoods() {
     </button>
   );
 
-  // -----Favorite button----------------------------------------------------------------------------
-
-  const favIcon = () => {
-    if (isFav) {
-      return <img alt="Heart" src={ Heart } />;
-    }
-    return <img alt="FullHeart" src={ FullHeart } />;
-  };
-
-  const removeFavorite = (index) => {
-    const filterFavorite = readInLocalStorage('favoriteRecipes')
-      .filter((recipe) => recipe.id !== index);
-
-    saveInLocalStorage('favoriteRecipes', filterFavorite);
-    setFav(verifyFav());
-  };
-
-  const addFavorite = (index) => {
-    const favorites = readInLocalStorage('favoriteRecipes');
-    saveInLocalStorage('favoriteRecipes', [...favorites, { id: index }]);
-    setFav(verifyFav());
-  };
-
-  const favorite = () => {
-    const fav = verifyFav();
-    if (fav) {
-      removeFavorite(id);
-    } else {
-      addFavorite(id);
-    }
-  };
-
   return (
     <div className="detail">
       <p>PÁGINA DETALHADA DE COMIDAS</p>
       <img alt="receita" data-testid="recipe-photo" src={ state.strMealThumb } />
       <h1 data-testid="recipe-title">{ state.strMeal }</h1>
       <button onClick={ share } type="button" data-testid="share-btn">Share</button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        className="favBtn"
-        onClick={ favorite }
-      >
-        { favIcon() }
-      </button>
+      <ButtonFavorite />
       <h2 data-testid="recipe-category">{ state.strCategory }</h2>
       <hr />
       <h2>Ingredientes</h2>
@@ -191,7 +124,7 @@ function DetailedFoods() {
         <track kind="captions" { ...l } />
       </video>
       <div className="sugestion">
-        { renderCards() }
+        {/* <Sugestions /> */}
       </div>
     </div>
   );
