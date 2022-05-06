@@ -1,0 +1,18 @@
+/* stylelint-disable linebreaks */
+.InProgresstListCard {
+  align-items: baseline;
+  display: flex;
+  justify-content: baseline;
+  padding: 4px 15px;
+}
+
+.ingredient-checked {
+  margin: 0;
+  margin-left: 8px;
+  text-decoration: line-through;
+}
+
+.ingredient-unchecked {
+  margin: 0;
+  margin-left: 8px;
+}

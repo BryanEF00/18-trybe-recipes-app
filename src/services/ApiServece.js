@@ -12,7 +12,7 @@ export const byCategory = 'www.themealdb.com/api/json/v1/1/filter.php?c=';
 export const byArea = 'www.themealdb.com/api/json/v1/1/filter.php?a=';
 // End-points dos drinks//
 export const cocktailByName = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-export const cocktailsByFirstLetter = 'www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+export const cocktailsByFirstLetter = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 export const ingredientIyName = 'www.thecocktaildb.com/api/json/v1/1/search.php?i=';
 export const detailsById = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 export const ingredientByID = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=';
