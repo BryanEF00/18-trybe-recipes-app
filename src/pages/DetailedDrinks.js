@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
@@ -24,15 +25,22 @@ function DetailedDrinks() {
     const data = await requestApi(detailsById, id);
     const drink = data.drinks[0];
     altState({ ...drink });
-    const ingredients = Object.entries(drink).filter((meal) => (meal[0].includes('Ingredient')) && meal[1]);
-    const quantities = Object.entries(drink).filter((meal) => (meal[0].includes('Measure')) && meal[1]);
+    const ingredients = Object.entries(drink)
+      .filter((meal) => (meal[0].includes('Ingredient')) && meal[1]);
+    const quantities = Object.entries(drink)
+      .filter((meal) => (meal[0].includes('Measure')) && meal[1]);
     altState((prev) => ({ ...prev, ingredients, quantities }));
   };
 
   const renderCards = () => {
     if (sugestions.length > 0) {
-      const list = sugestions.map((recipe, index) => <RecipeCard data={ { index, ...recipe, drink: true } } />);
-      return list.slice(0, 6);
+      const list = sugestions.map((recipe, index) => (<RecipeCard
+        key={ index }
+        data={
+          { index, ...recipe, drink: true }
+        }
+      />));
+      return list.slice(0, '6');
     }
   };
 
@@ -42,7 +50,13 @@ function DetailedDrinks() {
     <div className="detail">
       <img alt="receita" data-testid="recipe-photo" src={ state.strDrinkThumb } />
       <h1 data-testid="recipe-title">{ state.strDrink }</h1>
-      <button onClick={ getSugestions } type="button" data-testid="share-btn">Share</button>
+      <button
+        onClick={ getSugestions }
+        type="button"
+        data-testid="share-btn"
+      >
+        Share
+      </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
       <span data-testid="recipe-category">
         <h2>{ state.strCategory }</h2>
@@ -52,7 +66,14 @@ function DetailedDrinks() {
       <h2>Ingredientes</h2>
       <ul>
         {
-          state.ingredients && state.ingredients.map((li, index) => <li data-testid={ `${index}-ingredient-name-and-measure` }>{ `-${li[1]} - ${state.quantities[index][1]}` }</li>)
+          state.ingredients && state.ingredients.map((li, index) => (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { `-${li[1]} - ${state.quantities[index][1]}` }
+            </li>
+          ))
         }
       </ul>
       <hr />
