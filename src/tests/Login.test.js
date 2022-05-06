@@ -1,123 +1,118 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
-import renderWithRouter from '../helpers/renderWithRouter';
-import Login from '../pages/Login';
+
+import renderPath from '../helpers/renderPath';
 
 const TESTER_EMAIL = 'james@gmail.com';
-const TESTER_PASSWORD = 't1234567';
+const TESTER_PASSWORD = '12345678';
 const WRONG_EMAIL = 'xablau';
-const WRONG_PASSWORD = 't1234567';
+const WRONG_PASSWORD = '12345';
 
-describe('2. Verifica se a tela de login é mostrada conforme especificações', () => {
-  it('Verifica se é mostrado campo para inserir email', () => {
-    render(<Login />);
-    const inputEmail = screen.getByTestId('email-input');
-    expect(inputEmail).toBeInTheDocument();
-  });
-  it('Verifica se é mostrado campo para inserir senha', () => {
-    render(<Login />);
-    const inputPassword = screen.getByTestId('password-input');
-    expect(inputPassword).toBeInTheDocument();
-  });
-  it('Verifica se é mostrado um botão para acesso', () => {
-    render(<Login />);
-    const btnSubmit = screen.getByTestId('login-submit-btn');
-    expect(btnSubmit).toBeInTheDocument();
-  });
-});
+describe('Tela de Login é renderizada corretamente',
+  () => {
+    it('Na rota /, os inputs e o botão especificados estão presentes',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        expect(EMAIL_INPUT).toBeInTheDocument();
+        expect(PASSWORD_INPUT).toBeInTheDocument();
+        expect(LOGIN_BTN).toBeInTheDocument();
+      });
+    it('É possível inserir dados nos inputs',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        expect(EMAIL_INPUT).toHaveValue(TESTER_EMAIL);
 
-describe('3. A pessoa deve conseguir escrever seu email no input de email', () => {
-  it('É possivel digitar o email', () => {
-    render(<Login />);
-    const inputEmail = screen.getByTestId('email-input');
-    userEvent.type(inputEmail, TESTER_EMAIL);
-    expect(inputEmail).toHaveValue(TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        expect(PASSWORD_INPUT).toHaveValue(TESTER_PASSWORD);
+      });
   });
-});
 
-describe('4. A pessoa deve conseguir escrever sua senha no input de senha', () => {
-  it('É possível escrever a senha', () => {
-    render(<Login />);
-    const inputPassword = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, TESTER_PASSWORD);
-    expect(inputPassword).toHaveValue(TESTER_PASSWORD);
-  });
-});
+describe('Testa validação dos dados inseridos',
+  () => {
+    it('Botão desabilitado se o email for inválido',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.type(EMAIL_INPUT, WRONG_EMAIL);
+        expect(LOGIN_BTN).toBeDisabled();
+      });
 
-describe('5. O botão só ativa quando o form for válido', () => {
-  it('O botão deve estar desativado se o email for inválido', () => {
-    render(<Login />);
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, TESTER_PASSWORD);
-    userEvent.type(inputEmail, WRONG_EMAIL);
-    expect(btnSubmit).toBeDisabled();
-  });
-  it('O botão deve estar desativado se a senha for inválida', () => {
-    render(<Login />);
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, WRONG_PASSWORD);
-    userEvent.type(inputEmail, TESTER_EMAIL);
-    expect(btnSubmit).toBeDisabled();
-  });
-  it('O botão deve estar ativado se email e senha forem válidos', () => {
-    render(<Login />);
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, TESTER_PASSWORD);
-    userEvent.type(inputEmail, TESTER_EMAIL);
-    expect(btnSubmit).toBeEnabled();
-  });
-});
+    it('Botão desabilitado se a senha for inválida',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        userEvent.type(PASSWORD_INPUT, WRONG_PASSWORD);
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        expect(LOGIN_BTN).toBeDisabled();
+      });
 
-describe('6. Verifica se há 2 tokens no localStorage.', () => {
-  it('mealsToken e cocktailsToken devem estar no localStorage', () => {
-    renderWithRouter(<App />);
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, TESTER_PASSWORD);
-    userEvent.type(inputEmail, TESTER_EMAIL);
-    userEvent.click(btnSubmit);
-    const keyMealsToken = '1';
-    const keyCocktailsToken = '1';
-    const mealsToken = localStorage.getItem('mealsToken');
-    const cocktailsToken = localStorage.getItem('cocktailsToken');
-    expect(mealsToken).toBe(keyMealsToken);
-    expect(cocktailsToken).toBe(keyCocktailsToken);
+    it('Botão só é habilitado se o inputs forem válidos',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        expect(LOGIN_BTN).toBeEnabled();
+      });
   });
-});
 
-describe('7. Verifica se o e-mail esta no localStorage.', () => {
-  it('a chave user deve estar salva em localStorage', () => {
-    renderWithRouter(<App />);
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, TESTER_PASSWORD);
-    userEvent.type(inputEmail, TESTER_EMAIL);
-    userEvent.click(btnSubmit);
-    const userLogin = localStorage.getItem('user');
-    expect(userLogin).toBe({ email: TESTER_EMAIL });
-  });
-});
+describe('Salva dados no local storage e redireciona para tela principal após o login',
+  () => {
+    beforeEach(() => {
+      localStorage.clear();
+    });
 
-describe('8. Verifica se a rota esta correta', () => {
-  it('A rota muda para a tela principal de receitas de comidas', () => {
-    const { history } = renderWithRouter(<App />);
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const btnSubmit = screen.getByTestId('password-input');
-    userEvent.type(inputPassword, TESTER_PASSWORD);
-    userEvent.type(inputEmail, TESTER_EMAIL);
-    userEvent.click(btnSubmit);
-    const { pathname } = history.location;
-    expect(pathname).toBe('/foods');
+    it('Ao clicar no botão habilitado, o email é salvo no local storage',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.click(LOGIN_BTN);
+
+        const storedUser = JSON.parse(localStorage.getItem('user')).email;
+        expect(storedUser).toBe(TESTER_EMAIL);
+      });
+    it('mealsToken e cocktailsToken devem estar no localStorage',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.click(LOGIN_BTN);
+        const keyMealsToken = 1;
+        const keyCocktailsToken = 1;
+        const mealsToken = localStorage.getItem('mealsToken');
+        const cocktailsToken = localStorage.getItem('cocktailsToken');
+        expect(mealsToken).toHaveValue(keyMealsToken);
+        expect(cocktailsToken).toHaveValue(keyCocktailsToken);
+      });
+    it('Acessa tela principal de receitas de comidas após login',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId('email-input');
+        const PASSWORD_INPUT = screen.getByTestId('password-input');
+        const LOGIN_BTN = screen.getByTestId('login-submit-btn');
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.click(LOGIN_BTN);
+        expect(window.location.pathname).toBe('/foods');
+      });
   });
-});
