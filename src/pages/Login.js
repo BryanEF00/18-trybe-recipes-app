@@ -19,10 +19,18 @@ function Login({ history }) {
     }
   }
 
+  const ongoingRecipes = {
+    cocktails: {
+    },
+    meals: {
+    },
+  };
+
   function handleClick() {
     saveInLocalStorage('mealsToken', 1);
     saveInLocalStorage('cocktailsToken', 1);
     saveInLocalStorage('user', { email });
+    saveInLocalStorage('inProgressRecipes', ongoingRecipes);
     history.push('/foods');
   }
 
