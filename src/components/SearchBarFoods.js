@@ -20,7 +20,6 @@ function SearchBarFoods({ title }) {
   const [selectSearch, setSelectSearch] = useState();
   const [results, setResults] = useState([]);
   const [onAlert, setOnAlert] = useState(false);
-  console.log(title);
   function getItemSearch({ target }) {
     const valor = target.value;
     setItemSearch(valor);
