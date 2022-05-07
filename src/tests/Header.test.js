@@ -203,10 +203,34 @@ describe('Header não deve ser exibido nas páginas especificadas',
         expect(searchBtn).not.toBeInTheDocument();
         expect(pageTitle).not.toBeInTheDocument();
       });
+    it('Não exibir header nas telas de detalhes de receitas de comidas ou bebidas',
+      () => {
+        const { history } = renderPath('/foods');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        history.push('/foods/52771');
+        expect(profileBtn).not.toBeInTheDocument();
+        expect(searchBtn).not.toBeInTheDocument();
+        expect(pageTitle).not.toBeInTheDocument();
+        history.push('/foods/52771');
+        expect(profileBtn).not.toBeInTheDocument();
+        expect(searchBtn).not.toBeInTheDocument();
+        expect(pageTitle).not.toBeInTheDocument();
+      });
+    it('Não tem header na tela de receita em progresso de comida ou bebida',
+      () => {
+        const { history } = renderPath('/foods');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        history.push('/foods/52771/in-progress');
+        expect(profileBtn).not.toBeInTheDocument();
+        expect(searchBtn).not.toBeInTheDocument();
+        expect(pageTitle).not.toBeInTheDocument();
+        history.push('/drinks/178319/in-progress');
+        expect(profileBtn).not.toBeInTheDocument();
+        expect(searchBtn).not.toBeInTheDocument();
+        expect(pageTitle).not.toBeInTheDocument();
+      });
   });
-
-// Falta testar
-//   - Não tem header na tela de detalhes de uma receita de comida
-//   - Não tem header na tela de detalhes de uma receita de bebida
-//   - Não tem header na tela de receita em progresso de comida
-//   - Não tem header na tela de receita em progresso de bebida
