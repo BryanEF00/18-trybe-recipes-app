@@ -68,30 +68,145 @@ describe('Há um header na tela principal de receitas de comidas após login',
       });
   });
 
-describe('Header é mostrado nas páginas especificadas',
-  () => {});
+describe('Header é mostrado nas páginas principais',
+  () => {
+    it('Exibir header na tela de principal de receitas de comidas',
+      () => {
+        renderPath('/foods');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de principal de receitas de bebidas',
+      () => {
+        renderPath('/drinks');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de explorar',
+      () => {
+        renderPath('/explore');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+  });
+
+describe('Header é mostrado nas sub-páginas de explorar',
+  () => {
+    it('Exibir header na tela de explorar comidas',
+      () => {
+        renderPath('/explore/foods');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de explorar bebidas',
+      () => {
+        renderPath('/explore/drinks');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de explorar comidas por ingrediente',
+      () => {
+        renderPath('/explore/foods/ingredients');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de explorar bebidas por ingrediente',
+      () => {
+        renderPath('/explore/drinks/ingredients');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de explorar comidas por nacionalidade',
+      () => {
+        renderPath('/explore/foods/nationalities');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+  });
+
+describe('Header é mostrado nas telas do user',
+  () => {
+    it('Exibir header na tela de perfil',
+      () => {
+        renderPath('/profile');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de receitas favoritas',
+      () => {
+        renderPath('/favorite-recipes');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Exibir header na tela de receitas feitas',
+      () => {
+        renderPath('/done-recipes');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+  });
 
 describe('Header não deve ser exibido nas páginas especificadas',
-  () => {});
+  () => {
+    it('Não exibir header na tela de login',
+      () => {
+        const { history } = renderPath('/foods');
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+        history.push('/');
+        expect(profileBtn).not.toBeInTheDocument();
+        expect(searchBtn).not.toBeInTheDocument();
+        expect(pageTitle).not.toBeInTheDocument();
+      });
+  });
 
-// Todas as [rotas](#rotas) serão verificadas. Os ícones podem ser encontrados em `src/images/profileIcon.svg` e em `src/images/searchIcon.svg`.
-
-//   O que será verificado:
-//   ```
-//   - Não tem header na tela de login
-//   - O header tem os ícones corretos na tela de principal de receitas de comidas
-//   - O header tem os ícones corretos na tela de principal de receitas de bebidas
+// Falta testar
 //   - Não tem header na tela de detalhes de uma receita de comida
 //   - Não tem header na tela de detalhes de uma receita de bebida
 //   - Não tem header na tela de receita em progresso de comida
 //   - Não tem header na tela de receita em progresso de bebida
-//   - O header tem os ícones corretos na tela de explorar
-//   - O header tem os ícones corretos na tela de explorar comidas
-//   - O header tem os ícones corretos na tela de explorar bebidas
-//   - O header tem os ícones corretos na tela de explorar comidas por ingrediente
-//   - O header tem os ícones corretos na tela de explorar bebidas por ingrediente
-//   - O header tem os ícones corretos na tela de explorar comidas por nacionalidade
-//   - O header tem os ícones corretos na tela de perfil
-//   - O header tem os ícones corretos na tela de receitas feitas
-//   - O header tem os ícones corretos na tela de receitas favoritas
-//   ```
