@@ -1,54 +1,78 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
-import renderWithRouter from '../helpers/renderWithRouter';
-import Foods from '../pages/Foods';
 
-describe(`9 - Implemente os elementos do header na tela principal de receitas, 
-respeitando os atributos descritos no protótipo`, () => {
-  it('Tem os data-testids `profile-top-btn`, `page-title` e `search-top-btn`', () => {
-    render(<Foods />);
-    const profileBtn = screen.getByTestId('profile-top-btn');
-    expect(profileBtn).toBeInTheDocument();
+import renderPath from '../helpers/tests/renderPath';
+import {
+  TESTER_EMAIL,
+  TESTER_PASSWORD,
+  EMAIL_TESTID,
+  PASSWORD_TESTID,
+  LOGIN_BTN_TESTID,
+  PROFILE_TOP_BTN,
+  SEARCH_TOP_BTN,
+  PAGE_TITLE,
+  SEARCH_INPUT,
+} from '../helpers/tests/constants';
+
+describe('Há um header na tela principal de receitas de comidas após login',
+  () => {
+    it('Há um header contendo ícone de perfil, o título da página e um ícone de busca',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId(EMAIL_TESTID);
+        const PASSWORD_INPUT = screen.getByTestId(PASSWORD_TESTID);
+        const LOGIN_BTN = screen.getByTestId(LOGIN_BTN_TESTID);
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.click(LOGIN_BTN);
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        const pageTitle = screen.getByTestId(PAGE_TITLE);
+
+        expect(window.location.pathname).toBe('/foods');
+        expect(profileBtn).toBeInTheDocument();
+        expect(searchBtn).toBeInTheDocument();
+        expect(pageTitle).toBeInTheDocument();
+      });
+    it('Botão de perfil redireciona corretamente para página de perfil',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId(EMAIL_TESTID);
+        const PASSWORD_INPUT = screen.getByTestId(PASSWORD_TESTID);
+        const LOGIN_BTN = screen.getByTestId(LOGIN_BTN_TESTID);
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.click(LOGIN_BTN);
+        const profileBtn = screen.getByTestId(PROFILE_TOP_BTN);
+
+        expect(window.location.pathname).toBe('/foods');
+        userEvent.click(profileBtn);
+        expect(window.location.pathname).toBe('/profile');
+      });
+    it('Botão de busca ativa e desativa corretamente a barra de busca',
+      () => {
+        renderPath('/');
+        const EMAIL_INPUT = screen.getByTestId(EMAIL_TESTID);
+        const PASSWORD_INPUT = screen.getByTestId(PASSWORD_TESTID);
+        const LOGIN_BTN = screen.getByTestId(LOGIN_BTN_TESTID);
+        userEvent.type(EMAIL_INPUT, TESTER_EMAIL);
+        userEvent.type(PASSWORD_INPUT, TESTER_PASSWORD);
+        userEvent.click(LOGIN_BTN);
+
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        userEvent.click(searchBtn);
+        const searchInput = screen.getByTestId(SEARCH_INPUT);
+        expect(searchInput).toBeInTheDocument();
+        userEvent.click(searchBtn);
+        expect(searchInput).not.toBeInTheDocument();
+      });
   });
-  it('Há um elemento com o data-testid page-title', () => {
-    render(<Foods />);
-    const pageTitle = screen.getByTestId('page-title');
-    expect(pageTitle).toBeInTheDocument();
-  });
-  it('Há um elemento com o data-testid search-top-btn', () => {
-    render(<Foods />);
-    const searchTopBtn = screen.getByTestId('search-top-btn');
-    expect(searchTopBtn).toBeInTheDocument();
-  });
-});
 
-// beforeEach(() => {
-//   localStorage.clear();
-// });
-// it('Testar navegação', () => {
-//   const { history } = renderWithRouter(<App />);
-//   const inputEmail = screen.getByTestId('email-input');
-//   const inputPassword = screen.getByTestId('password-input');
-//   const btnSubmit = screen.getByTestId('password-input');
-//   userEvent.type(inputPassword, TESTER_PASSWORD);
-//   userEvent.type(inputEmail, TESTER_EMAIL);
-//   userEvent.click(btnSubmit);
-//   const { pathname } = history.location;
-//   expect(pathname).toBe('/foods');
-// });
+describe('Header é mostrado nas páginas especificadas',
+  () => {});
 
-// ## Header
-
-// ### 9 - Implemente os elementos do header na tela principal de receitas, respeitando os atributos descritos no protótipo
-
-//   O que será verificado:
-//   ```
-//   - Tem os data-testids `profile-top-btn`, `page-title` e `search-top-btn`
-//   ```
-
-// ### 10 - Implemente um ícone para a tela de perfil, um título e um ícone para a busca, caso exista no protótipo
+describe('Header não deve ser exibido nas páginas especificadas',
+  () => {});
 
 // Todas as [rotas](#rotas) serão verificadas. Os ícones podem ser encontrados em `src/images/profileIcon.svg` e em `src/images/searchIcon.svg`.
 
@@ -70,21 +94,4 @@ respeitando os atributos descritos no protótipo`, () => {
 //   - O header tem os ícones corretos na tela de perfil
 //   - O header tem os ícones corretos na tela de receitas feitas
 //   - O header tem os ícones corretos na tela de receitas favoritas
-//   ```
-
-// ### 11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil
-
-//   O que será verificado:
-//   ```
-//   - A mudança de tela ocorre corretamente
-//   ```
-
-// ### 12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer. O mesmo serve para escondê-la
-
-//   * O input de busca deve possuir o atributo `data-testid="search-input"`
-
-//   O que será verificado:
-//   ```
-//   - Ao clicar no botão de busca pela primeira vez a barra de busca aparece
-//   - Ao clicar no botão de busca pela segunda vez a barra de busca desaparece
 //   ```
