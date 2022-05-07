@@ -1,4 +1,37 @@
 // ## Barra de busca - Header
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import renderPath from '../helpers/tests/renderPath';
+
+import {
+  EXEC_SEARCH_BTN,
+  FIRSTLETTER_SEARCH_RADIO,
+  INGREDIENTS_SEARCH_RADIO,
+  NAME_SEARCH_RADIO,
+  SEARCH_INPUT,
+  SEARCH_TOP_BTN,
+} from '../helpers/tests/constants';
+
+describe('Barra de busca é renderizada conforme especificado em protótipo',
+  () => {
+    it('Há um input para inserir dados e radios Ingredient, First Letter e Name',
+      () => {
+        renderPath('/foods');
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        userEvent.click(searchBtn);
+        const searchInput = screen.getByTestId(SEARCH_INPUT);
+        const ingredientRadio = screen.getByTestId(INGREDIENTS_SEARCH_RADIO);
+        const nameRadio = screen.getByTestId(NAME_SEARCH_RADIO);
+        const firstLetterRadio = screen.getByTestId(FIRSTLETTER_SEARCH_RADIO);
+        const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
+        expect(ingredientRadio).toBeInTheDocument();
+        expect(nameRadio).toBeInTheDocument();
+        expect(firstLetterRadio).toBeInTheDocument();
+        expect(execSearchBtn).toBeInTheDocument();
+        expect(searchInput).toBeInTheDocument();
+      });
+  });
 
 // ### 13 - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo
 
