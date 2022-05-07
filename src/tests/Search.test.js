@@ -33,22 +33,6 @@ describe('Barra de busca é renderizada conforme especificado em protótipo',
       });
   });
 
-// ### 13 - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo
-
-// Deve existir os data-testids tanto da barra de busca quanto de todos os radio-buttons.
-
-//   **Observações técnicas**
-
-//   * O radio button de busca de ingrediente deve possuir o atributo `data-testid="ingredient-search-radio"`;
-//   * O radio button de busca por nome deve possuir o atributo `data-testid="name-search-radio"`;
-//   * O radio button de busca da primeira letra deve possuir o atributo `data-testid="first-letter-search-radio"`.
-//   * O botão de busca deve possuir o atributo `data-testid="exec-search-btn"`
-
-//   O que será verificado:
-//   ```
-//   - Tem os data-testids tanto da barra de busca quanto de todos os radio-buttons
-//   ```
-
 // ### 14 - Posicione a barra logo abaixo do header e implemente 3 radio buttons: Ingredient, Name e First letter
 
 // A barra de busca deve ficar logo abaixo do header e deve possuir 3 _radio buttons_: `Ingredient`, `Name` e `First letter`. Eles, em conjunto com a `search-input`, devem mudar a forma como serão filtradas as receitas após clicar no botão `Search`.  Os _endpoints_ da API que você deve usar podem ser consultados [aqui para a API de comidas](https://www.themealdb.com/api.php) e [aqui para a API de bebidas](https://www.thecocktaildb.com/api.php).
