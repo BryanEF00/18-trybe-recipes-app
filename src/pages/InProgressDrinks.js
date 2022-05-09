@@ -31,7 +31,8 @@ function InProgressDrinks() {
     if (readInLocalStorage('favoriteRecipes') === null) {
       saveInLocalStorage('favoriteRecipes', []);
     }
-    if (readInLocalStorage('inProgressRecipes') === null) {
+    if (readInLocalStorage('inProgressRecipes') === null
+    || Object.keys(readInLocalStorage('inProgressRecipes').cocktails).length === 0) {
       setStorage(
         {
           cocktails: { [id]: [] },
