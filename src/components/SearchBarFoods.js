@@ -37,7 +37,6 @@ function SearchBarFoods({ title }) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     if (results.length === 1) {
-      console.log(1);
       if (title === 'Foods') window.location.href = `/foods/${results[0].idMeal}`;
       if (title === 'Drinks') window.location.href = `/drinks/${results[0].idDrink}`;
     }
