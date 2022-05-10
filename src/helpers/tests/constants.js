@@ -21,3 +21,6 @@ export const FOOTER = 'footer';
 export const DRINKS_BOTTON_BTN = 'drinks-bottom-btn';
 export const FOOD_BOTTON_BTN = 'food-bottom-btn';
 export const EXPLORE_BOTTON_BTN = 'explore-bottom-btn';
+export const DRINKS_ICON = 'drink icon';
+export const FOOD_ICON = 'meal icon';
+export const EXPLORE_ICON = 'explore icon';

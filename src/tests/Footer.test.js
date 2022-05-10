@@ -8,6 +8,9 @@ import {
   DRINKS_BOTTON_BTN,
   FOOD_BOTTON_BTN,
   EXPLORE_BOTTON_BTN,
+  DRINKS_ICON,
+  FOOD_ICON,
+  EXPLORE_ICON,
 } from '../helpers/tests/constants';
 
 describe('Elementos do menu inferior presentes conforme atributos no protótipo',
@@ -25,6 +28,28 @@ describe('Elementos do menu inferior presentes conforme atributos no protótipo'
         expect(drinksBottomBtn).toBeInTheDocument();
         expect(foodBottomBtn).toBeInTheDocument();
         expect(exploreBottomBtn).toBeInTheDocument();
+      });
+    it('Apresenta os ícones corretos',
+      () => {
+        renderPath('/foods');
+        const footer = screen.getByTestId(FOOTER);
+        const drinksBottomBtn = screen.getByTestId(DRINKS_BOTTON_BTN);
+        const foodBottomBtn = screen.getByTestId(FOOD_BOTTON_BTN);
+        const exploreBottomBtn = screen.getByTestId(EXPLORE_BOTTON_BTN);
+        const imgFood = screen.getByAltText(FOOD_ICON);
+        const imgDrink = screen.getByAltText(DRINKS_ICON);
+        const imgExplore = screen.getByAltText(EXPLORE_ICON);
+        const DRINK_IMG_SRC = 'drinkIcon.svg';
+        const EXPLORE_IMG_SRC = 'exploreIcon.svg';
+        const MEAL_IMG_SRC = 'mealIcon.svg';
+
+        expect(footer).toBeInTheDocument();
+        expect(drinksBottomBtn).toHaveAttribute('src', DRINK_IMG_SRC);
+        expect(foodBottomBtn).toHaveAttribute('src', MEAL_IMG_SRC);
+        expect(exploreBottomBtn).toHaveAttribute('src', EXPLORE_IMG_SRC);
+        expect(imgFood.src).toBe(`http://localhost/${MEAL_IMG_SRC}`);
+        expect(imgDrink.src).toBe(`http://localhost/${DRINK_IMG_SRC}`);
+        expect(imgExplore.src).toBe(`http://localhost/${EXPLORE_IMG_SRC}`);
       });
     it('O menu inferior deve ficar fixado sempre ao final da página',
       () => {
@@ -182,8 +207,5 @@ describe('Redirecione a pessoa usuária ao clicar em um dos itens do Footer',
 // ### 20 - Posicione o menu inferior de forma fixa e apresente 3 ícones: um para comidas, um para bebidas e outro para exploração
 //   **Observações técnicas**
 //   * O menu inferior deve ficar fixado sempre ao final da página;
-//   * Apresenta os ícones corretos (drinkIcon.svg, exploreIcon.svg e mealIcon.svg, disponíveis na pasta `src/images/`).
 //   O que será verificado:
 //   - O menu inferior deve ficar fixado sempre ao final da página
-//   - Apresenta os ícones corretos
-
