@@ -2,7 +2,6 @@
 // Observação: lembre de componentizar muito bem os elementos em React nessa tela para evitar problemas de lógica e de complexidade ;).
 // 25 - Implemente os elementos da tela principal de receitas respeitando os atributos descritos no protótipo
 // O que será verificado:
-
 // - A tela tem os data-testids de todos os 12 cards da tela de comidas
 // - A tela tem os data-testids de todos os 12 cards da tela de bebidas
 // 26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card
@@ -13,7 +12,6 @@
 // Caso as receitas sejam de comida, deve-se carregar as 12 primeiras receitas obtidas através do endpoint https://www.themealdb.com/api/json/v1/1/search.php?s=;
 // Caso as receitas sejam de bebida, deve-se carregar as 12 primeiras receitas obtidas através do endpoint https://www.thecocktaildb.com/api/json/v1/1/search.php?s=.
 // O que será verificado:
-
 // - Caso as receitas sejam de comida, deve-se carregar as 12 primeiras receitas
 // - Caso as receitas sejam de bebida, deve-se carregar as 12 primeiras receitas
 // 27 - Implemente os botões de categoria para serem utilizados como filtro
