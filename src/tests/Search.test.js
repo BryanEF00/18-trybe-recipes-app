@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import renderPath from '../helpers/tests/renderPath';
 
+import fetchMock from '../../cypress/mocks/fetch';
 import {
   EXEC_SEARCH_BTN,
   FIRSTLETTER_SEARCH_RADIO,
@@ -15,7 +16,7 @@ import {
 
 describe('Barra de busca é renderizada conforme especificado em protótipo',
   () => {
-    it('Há um input para inserir dados e radios Ingredient, First Letter e Name',
+    it('Há o input para inserir dados e 3 radio buttons: Ingredient, First Letter e Name',
       () => {
         renderPath('/foods');
         const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
@@ -33,30 +34,89 @@ describe('Barra de busca é renderizada conforme especificado em protótipo',
       });
   });
 
-// ### 14 - Posicione a barra logo abaixo do header e implemente 3 radio buttons: Ingredient, Name e First letter
+describe('Busca item conforme tipo selecionado via radio button',
+  () => {
+    beforeEach(() => {
+      global.fetch = jest.fn((url) => fetchMock(url));
+    });
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    it('Selecionando radio Ingredient, busca na API é feita pelo ingrediente',
+      async () => {
+        renderPath('/foods');
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        userEvent.click(searchBtn);
+        const searchInput = screen.getByTestId(SEARCH_INPUT);
+        const ingredientRadio = screen.getByTestId(INGREDIENTS_SEARCH_RADIO);
+        const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
 
-// A barra de busca deve ficar logo abaixo do header e deve possuir 3 _radio buttons_: `Ingredient`, `Name` e `First letter`. Eles, em conjunto com a `search-input`, devem mudar a forma como serão filtradas as receitas após clicar no botão `Search`.  Os _endpoints_ da API que você deve usar podem ser consultados [aqui para a API de comidas](https://www.themealdb.com/api.php) e [aqui para a API de bebidas](https://www.thecocktaildb.com/api.php).
+        userEvent.click(ingredientRadio);
+        userEvent.type(searchInput, 'chicken');
+        userEvent.click(execSearchBtn);
 
-//   **Observações técnicas**
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+        await waitFor(() => expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=Chicken'));
+      });
+    it('Selecionando radio Name, busca na API é feita pelo nome',
+      async () => {
+        renderPath('/foods');
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        userEvent.click(searchBtn);
+        const searchInput = screen.getByTestId(SEARCH_INPUT);
+        const nameRadio = screen.getByTestId(NAME_SEARCH_RADIO);
+        const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
 
-//   * Se o radio selecionado for `Ingredient`, a busca na API é feita corretamente pelo ingrediente. O endpoint utilizado deve ser `https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente}`;
-//   * Se o radio selecionado for `Name`, a busca na API é feita corretamente pelo nome. O endpoint utilizado deve ser `https://www.themealdb.com/api/json/v1/1/search.php?s={nome}`;
-//   * Se o radio selecionado for `First letter`, a busca na API é feita corretamente pela primeira letra. O endpoint utilizado deve ser `https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}`;
-//   * Se o radio selecionado for `First letter` e a busca na API for feita com mais de uma letra, deve-se exibir um `alert` com a mensagem "Your search must have only 1 (one) character".
+        userEvent.click(nameRadio);
+        userEvent.type(searchInput, 'soup');
+        userEvent.click(execSearchBtn);
 
-// **Atenção:** Utilize `global.alert` para evitar os `warnings` do eslint sobre o uso de `alert` no código.
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+        await waitFor(() => expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=soup'));
+      });
+  });
+describe('Busca item utilizando radio button First Letter',
+  () => {
+    beforeEach(() => {
+      global.fetch = jest.fn((url) => fetchMock(url));
+    });
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    it('Selecionando radio  First letter, a busca na API é feita pelo primeira letra',
+      async () => {
+        renderPath('/foods');
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        userEvent.click(searchBtn);
+        const searchInput = screen.getByTestId(SEARCH_INPUT);
+        const firstLetterRadio = screen.getByTestId(FIRSTLETTER_SEARCH_RADIO);
+        const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
 
-// ##### Exemplo: Ao selecionar `Ingredient` e buscar por `chicken`, deve-se utilizar o endpoint `https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken`.
+        userEvent.click(firstLetterRadio);
+        userEvent.type(searchInput, 'a');
+        userEvent.click(execSearchBtn);
 
-// ##### Observação: Para esse requisito será verificada apenas a tela principal de receitas de comidas.
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+        await waitFor(() => expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=a'));
+      });
+    it('Selecionando First letter, exibe alert se busca for feita com mais de uma letra',
+      async () => {
+        renderPath('/foods');
+        const searchBtn = screen.getByTestId(SEARCH_TOP_BTN);
+        userEvent.click(searchBtn);
+        const searchInput = screen.getByTestId(SEARCH_INPUT);
+        const firstLetterRadio = screen.getByTestId(FIRSTLETTER_SEARCH_RADIO);
+        const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
 
-//   O que será verificado:
-//   ```
-//   - Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente
-//   - Se o radio selecionado for Name, a busca na API é feita corretamente pelo nome
-//   - Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra
-//   - Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert
-//   ```
+        userEvent.click(firstLetterRadio);
+        userEvent.type(searchInput, 'xablau');
+        userEvent.click(execSearchBtn);
+
+        await waitFor(() => expect(global.alert).toHaveBeenCalledWith(
+          'Your search must have only 1 (one) character',
+        ));
+      });
+  });
 
 // ### 15 - Busque na API de comidas caso a pessoa esteja na página de comidas e na de bebidas caso esteja na de bebidas
 

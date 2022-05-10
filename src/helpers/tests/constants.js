@@ -16,3 +16,8 @@ export const NAME_SEARCH_RADIO = 'name-search-radio';
 export const INGREDIENTS_SEARCH_RADIO = 'ingredient-search-radio';
 export const FIRSTLETTER_SEARCH_RADIO = 'first-letter-search-radio';
 export const EXEC_SEARCH_BTN = 'exec-search-btn';
+// FOOTER
+export const FOOTER = 'footer';
+export const DRINKS_BOTTON_BTN = 'drinks-bottom-btn';
+export const FOOD_BOTTON_BTN = 'food-bottom-btn';
+export const EXPLORE_BOTTON_BTN = 'explore-bottom-btn';

@@ -213,7 +213,7 @@ describe('Header não deve ser exibido nas páginas especificadas',
         expect(profileBtn).not.toBeInTheDocument();
         expect(searchBtn).not.toBeInTheDocument();
         expect(pageTitle).not.toBeInTheDocument();
-        history.push('/foods/52771');
+        history.push('/drinks/178319');
         expect(profileBtn).not.toBeInTheDocument();
         expect(searchBtn).not.toBeInTheDocument();
         expect(pageTitle).not.toBeInTheDocument();
