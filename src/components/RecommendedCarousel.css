@@ -1,0 +1,25 @@
+/* stylelint-disable linebreaks */
+.carouselContainer {
+  display: flex;
+  margin: 12px;
+  margin-bottom: 50px;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselChild {
+  border: none;
+  margin-left: 12px;
+  scroll-snap-align: start;
+}
+
+.carouselImage {
+  height: 172px;
+  width: 161px;
+}

@@ -1,131 +1,177 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import copy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import ButtonFavorite from '../components/buttonFavorit';
-import { requestApi, fullMealDetailsById } from '../services/ApiServece';
-import { saveInLocalStorage, readInLocalStorage } from '../services/localStorage';
-
-const l = 'l';
+import { useParams } from 'react-router-dom';
+import FoodVideo from '../components/FoodVideo';
+import Loading from '../components/Loading';
+import RecipeCard from '../components/RecipeCard';
+import RecommendedCarousel from '../components/RecommendedCarousel';
+import StartRecipeBtn from '../components/StartRecipeBtn';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { fullMealDetailsById, requestApi } from '../services/ApiServece';
+import { readInLocalStorage, saveInLocalStorage } from '../services/localStorage';
 
 function DetailedFoods() {
+  const [food, setFood] = useState({});
+  const [isCopied, setIsCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(true);
+  const [fullList, setFullList] = useState([]);
   const { id } = useParams();
-  const [state, altState] = useState({
-    strMealThumb: '',
-    strMeal: '',
-    strCategory: '',
-    strInstructions: '',
-    strYoutube: '',
-  });
-  const history = useHistory();
 
-  const ongoingRecipes = {
-    cocktails: {
-    },
-    meals: {
-    },
-  };
+  const { strMeal, strCategory, strArea, strInstructions, strMealThumb, strYoutube,
+  } = food;
 
-  if (readInLocalStorage('inProgressRecipes') === null) {
-    saveInLocalStorage('inProgressRecipes', ongoingRecipes);
-  }
-
-  const getDetails = async () => {
-    const data = await requestApi(fullMealDetailsById, id);
-    const meal = data.meals[0];
-    altState({ ...meal, id });
-    const ingredients = Object.entries(meal)
-      .filter((ingredient) => (ingredient[0].includes('Ingredient')) && ingredient[1]);
-    const quantities = Object.entries(meal)
-      .filter((ingredient) => (ingredient[0].includes('Measure')) && ingredient[1]);
-    altState((prev) => ({ ...prev, ingredients, quantities }));
-  };
-
-  const checkLocal = (local) => {
-    if (readInLocalStorage(local) === null) {
-      saveInLocalStorage(local, []);
-    }
-  };
-
-  const verifyDone = () => {
-    checkLocal('doneRecipes');
-    const done = readInLocalStorage('doneRecipes');
-    const ids = done.map((recipe) => recipe.id);
-    return ids.includes(parseInt(id, 10));
-  };
-
-  const verify = () => {
-    const { meals } = readInLocalStorage('inProgressRecipes');
-    const recipes = Object.keys(meals);
-    if (recipes.includes(id)) return true;
-    return false;
-  };
-
-  const startRecipe = () => {
-    if (verify()) {
-      history.push(`/foods/${id}/in-progress`);
-    } else {
-      const progress = readInLocalStorage('inProgressRecipes');
-      progress.meals[id] = [];
-      saveInLocalStorage('inProgressRecipes', progress);
-      history.push(`/foods/${id}/in-progress`);
-    }
-  };
-
-  const share = () => {
-    navigator.clipboard.writeText(document.URL);
-    global.alert('Link copied!');
-  };
+  const ingredients = Object.entries(food)
+    .filter((ingredient) => ingredient[0].includes('Ingredient')
+    && ingredient[1]).map((value) => value[1]);
+  const measure = Object.entries(food)
+    .filter((ingredient) => ingredient[0].includes('Measure')
+    && ingredient[1] !== '').map((value) => value[1]);
 
   useEffect(() => {
-    getDetails();
+    if (readInLocalStorage('inProgressRecipes') === null) {
+      saveInLocalStorage('inProgressRecipes', {
+        cocktails: { },
+        meals: { },
+      });
+    } else {
+      saveInLocalStorage('inProgressRecipes', readInLocalStorage('inProgressRecipes'));
+    }
   }, []);
 
-  // -----Start recipe button-----------------------------------------------------------------------
+  useEffect(() => {
+    if (readInLocalStorage('favoriteRecipes') === null) {
+      saveInLocalStorage('favoriteRecipes', []);
+    }
 
-  const startBtn = (
-    <button
-      className="start-btn"
-      type="button"
-      data-testid="start-recipe-btn"
-      onClick={ startRecipe }
-    >
-      { (verify()) ? 'Continue Recipe' : 'START RECIPE' }
-    </button>
-  );
+    requestApi(fullMealDetailsById, id).then(({ meals }) => setFood(meals[0]));
+
+    const setItems = ingredients
+      .map((ingredient, index) => `${ingredient} - ${measure[index]}`);
+    setFullList(setItems);
+
+    setIsFavorite(readInLocalStorage('favoriteRecipes')
+      .some((recipe) => recipe.id === id));
+    setIsLoading(false);
+  }, [food]);
+
+  const setFavorites = () => {
+    const allFavorites = readInLocalStorage('favoriteRecipes');
+    const verify = allFavorites.some((favorite) => favorite.id === id);
+
+    if (verify) {
+      const filter = allFavorites.filter((favorite) => favorite.id !== id);
+      saveInLocalStorage('favoriteRecipes', filter);
+    } else {
+      const newFavorite = {
+        id,
+        type: 'food',
+        nationality: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+      };
+      saveInLocalStorage('favoriteRecipes', [...allFavorites, newFavorite]);
+    }
+  };
 
   return (
-    <div className="detail">
-      <p>PÁGINA DETALHADA DE COMIDAS</p>
-      <img alt="receita" data-testid="recipe-photo" src={ state.strMealThumb } />
-      <h1 data-testid="recipe-title">{ state.strMeal }</h1>
-      <button onClick={ share } type="button" data-testid="share-btn">Share</button>
-      <ButtonFavorite />
-      <h2 data-testid="recipe-category">{ state.strCategory }</h2>
-      <hr />
-      <h2>Ingredientes</h2>
-      <ul>
-        {
-          state.ingredients && state.ingredients
-            .map((li, index) => (
-              <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                { `-${li[1]} - ${state.quantities[index][1]}` }
-              </li>
-            ))
-        }
-      </ul>
-      <hr />
-      <h2>Modo de Preparo</h2>
-      <p data-testid="instructions">
-        { state.strInstructions }
-      </p>
-      { !verifyDone() && startBtn }
-      <video data-testid="video" width="200" controls>
-        <source src={ state.strYoutube } type="video/mp4" />
-        <track kind="captions" { ...l } />
-      </video>
-      <div className="sugestion">
-        {/* <Sugestions /> */}
-      </div>
+    <div>
+      { isLoading
+        ? (<Loading />)
+        : (
+          <div>
+            <img
+              data-testid="recipe-photo"
+              src={ strMealThumb }
+              alt={ strMeal }
+              style={ { height: 100 } }
+            />
+            <div
+              className="d-flex"
+            >
+              <h3
+                data-testid="recipe-title"
+              >
+                {strMeal}
+              </h3>
+              <div>
+                <button
+                  type="button"
+                  onClick={ () => {
+                    setIsCopied((prev) => !prev);
+                    copy(`http://localhost:3000/foods/${id}`);
+                  } }
+                >
+                  <img
+                    data-testid="share-btn"
+                    src={ shareIcon }
+                    alt="Share Icon"
+                  />
+                </button>
+                {isCopied && 'Link copied!'}
+              </div>
+              <button
+                type="button"
+                onClick={ () => {
+                  setFavorites();
+                  setIsFavorite(!isFavorite);
+                } }
+              >
+                <img
+                  data-testid="favorite-btn"
+                  src={
+                    isFavorite ? blackHeartIcon : whiteHeartIcon
+                  }
+                  alt="Favorite Heart Icon"
+                />
+              </button>
+            </div>
+            <div
+              data-testid="recipe-category"
+            >
+              {strCategory}
+            </div>
+            <div>
+              <h3>Ingredients</h3>
+              {
+                fullList.map((item, index) => (
+                  <RecipeCard
+                    key={ item }
+                    ingredientLi={ item }
+                    index={ index }
+                  />
+                ))
+              }
+            </div>
+            <div
+              data-testid="instructions"
+            >
+              <h3>Instructions</h3>
+              {strInstructions}
+            </div>
+            <div
+              data-testid="video"
+            >
+              <h3>Video</h3>
+              { strYoutube && (
+                <FoodVideo
+                  strYoutube={ strYoutube }
+                  id={ id }
+                />
+              )}
+            </div>
+            <div>
+              <h3>Recommended</h3>
+              <RecommendedCarousel title="drinks" />
+            </div>
+            <StartRecipeBtn id={ id } title="meals" />
+          </div>
+        ) }
     </div>
   );
 }
