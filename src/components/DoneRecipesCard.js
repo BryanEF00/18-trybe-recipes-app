@@ -65,7 +65,8 @@ function DoneRecipesCard({ data, index }) {
           <div
             data-testid={ `${index}-horizontal-done-date` }
           >
-            {`Done in: ${doneDate}`}
+            {`Done in:
+            ${doneDate}`}
           </div>
           <button
             type="button"
@@ -88,8 +89,8 @@ function DoneRecipesCard({ data, index }) {
           className="DoneRecipesCard-Tags"
         >
           {
-            tags.length > 0
-            && tags.map((tag) => (
+            tags !== null
+            && tags.split(',').map((tag) => (
               <div
                 data-testid={ `${index}-${tag}-horizontal-tag` }
                 key={ tag }

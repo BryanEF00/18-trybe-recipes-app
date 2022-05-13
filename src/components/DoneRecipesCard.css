@@ -68,7 +68,7 @@
   border: none;
   height: 35px;
   margin: 0;
-  width: 100%;
+  width: 50%;
 }
 
 .DoneRecipesCard-IsCopied {
@@ -91,6 +91,7 @@
   font-size: 16px;
   font-weight: 500;
   height: 20px;
+  margin-top: 4px;
   padding: 0 13px;
   width: fit-content;
 }

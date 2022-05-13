@@ -59,7 +59,7 @@ function InProgressFoods() {
   }, [storage]);
 
   const { strMeal, strCategory, strArea, strInstructions, strMealThumb,
-  } = food;
+    strTags } = food;
 
   const setFavorites = () => {
     const allFavorites = readInLocalStorage('favoriteRecipes');
@@ -80,6 +80,30 @@ function InProgressFoods() {
       };
       saveInLocalStorage('favoriteRecipes', [...allFavorites, newFavorite]);
     }
+  };
+
+  const setDone = () => {
+    const readDone = readInLocalStorage('doneRecipes');
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const date = `${dd}/${mm}/${yyyy}`;
+
+    const newDone = {
+      id,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: date,
+      tags: strTags,
+    };
+    saveInLocalStorage('doneRecipes', [...readDone, newDone]);
+
+    history.push('/done-recipes');
   };
 
   return (
@@ -163,7 +187,7 @@ function InProgressFoods() {
               data-testid="finish-recipe-btn"
               type="button"
               disabled={ storage.meals[id].length !== fullList.length }
-              onClick={ () => history.push('/done-recipes') }
+              onClick={ setDone }
             >
               Finish
             </button>
